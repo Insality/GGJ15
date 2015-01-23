@@ -49,7 +49,8 @@ public class BeatTracker: MonoBehaviour {
         //	    var c3 : float = spectrum[11] + spectrum[12] + spectrum[13];
         //	    var c4 : float = spectrum[22] + spectrum[23] + spectrum[24];
         //	    var c5 : float = spectrum[44] + spectrum[45] + spectrum[46] + spectrum[47] + spectrum[48] + spectrum[49]; 
-        float c1 = spectrum[2] + spectrum[3] + spectrum[4];
+//        float c1 = spectrum[2] + spectrum[3] + spectrum[4];
+        float c1 = spectrum[2] + spectrum[3];
 
         return c1;
 
@@ -66,7 +67,7 @@ public class BeatTracker: MonoBehaviour {
     }
 
     private void BeatAction() {
-        Debug.Log("Beat!");
+        Debug.Log("Beat! " + GetBassBeat());
         BeatEvent(null, null);
     }
 }
