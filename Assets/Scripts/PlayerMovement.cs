@@ -21,6 +21,7 @@ public class PlayerMovement: MonoBehaviour {
     }
 
     private void PlayerBeat() {
+
         _curSide++;
         _curSide %= 6;
 

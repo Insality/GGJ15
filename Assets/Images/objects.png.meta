@@ -6,6 +6,8 @@ TextureImporter:
     21300002: objects_1
     21300004: objects_2
     21300006: objects_3
+    21300008: objects_4
+    21300010: objects_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -84,6 +86,26 @@ TextureImporter:
         y: 502
         width: 50
         height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: objects_4
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 498
+        width: 65
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: objects_5
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 504
+        width: 10
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

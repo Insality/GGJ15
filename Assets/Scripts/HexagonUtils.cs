@@ -20,7 +20,7 @@ public class HexagonUtils {
         }
         if (side == 4) {
             result.x = -0.5f;
-            result.y = -0.866f;
+            result.y = -Mathf.Sqrt(3) / 2;
         }
         if (side == 5) {
             result.x = 0.5f;
