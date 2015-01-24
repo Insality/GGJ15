@@ -1,42 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ProjectileLogic : GeneralProjectileLogic
+public class SnakeLogic : GeneralProjectileLogic
 {
 
     public int LifeBeatTime;
     private int _curLifeBeatTime;
     public int MoveEveryBeat;
     public int Direction;
+    public int ChangeEveryBeat;
 
     private Vector3 _goalMove;
+    private Transform _playerTransform;
 
-	// Use this for initialization
-	void Start () {
+    //private delegate _ev = (sender, args) => BeatProjectileLogic();
+
+    // Use this for initialization
+    void Start()
+    {
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
 
         _curLifeBeatTime = 0;
         _goalMove = transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Vector2 velocity = Vector2.zero;
         transform.position = Vector2.SmoothDamp(transform.position, _goalMove, ref velocity, 0.03f);
-	}
+    }
 
     public override void BeatProjectileLogic()
     {
         _curLifeBeatTime += 1;
 
-        if (_curLifeBeatTime >= LifeBeatTime){
+        if (_curLifeBeatTime >= LifeBeatTime)
+        {
             DestroyProjectile();
+            //Destroy(gameObject);
         }
 
         MoveLogic();
     }
-
-
     public override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -46,14 +53,30 @@ public class ProjectileLogic : GeneralProjectileLogic
         }
     }
 
-    void MoveLogic(){
+    public void MoveLogic()
+    {
         if (_curLifeBeatTime % MoveEveryBeat == 0)
-        {
+        {   
             //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
             _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
+            int _dirToPlayer = HexagonUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
+
+            if (_curLifeBeatTime % ChangeEveryBeat == 0)
+            {
+                int side = ((_dirToPlayer - Direction) + 6) % 6;
+                if (side >= 3)
+                {
+                    side = 5;// analog -1
+                }
+                else
+                {
+                    side = 1;
+                }
+
+                Direction += side;
+                Direction %= 6;
+            }
             //transform.position += new Vector3(moveV2.x, moveV2.y);
         }
     }
-
-
 }

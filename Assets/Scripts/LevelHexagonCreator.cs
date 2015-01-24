@@ -12,6 +12,8 @@ public class LevelHexagonCreator : MonoBehaviour {
 
     private Vector2[] _corners;
 
+    public Sprite[] TurretsSprites;
+
 	// Use this for initialization
 	void Start () {
 
@@ -86,6 +88,11 @@ public class LevelHexagonCreator : MonoBehaviour {
             }
         }
 
+        for (int i = 0; i < _corners.Length; i++)
+        {
+            Destroy(HexagonUtils.GetObjByWorldPos(_corners[i]));
+        }
+
 
         // Turret creation
         for (int i = 0; i < _corners.Length; i++)
@@ -94,13 +101,16 @@ public class LevelHexagonCreator : MonoBehaviour {
             curTurret.transform.position = _corners[i];
 
             curTurret.GetComponent<TurretLogic>().TurretNumber = i;
+            curTurret.GetComponent<SpriteRenderer>().sprite = TurretsSprites[i];
+
+            // TODO: do it!
+            curTurret.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, HexagonUtils.GetAngleBySide(i) - 90));
+
         }
 
         // Wall Creation
 
-        HexagonUtils.ReplaceWith(HexagonTileWall, -2, 0);
-        HexagonUtils.ReplaceWith(HexagonTileWall, -1, -1);
-        HexagonUtils.ReplaceWith(HexagonTileWall, 0, -3);
+//        HexagonUtils.ReplaceWith(HexagonTileWall, -2, 0);
 
     }
 

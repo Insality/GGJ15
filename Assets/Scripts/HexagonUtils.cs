@@ -38,6 +38,11 @@ public class HexagonUtils {
         return new Vector2(v3.x, v3.y);
     }
 
+    public static Vector3 GetV3FromV2(Vector2 v2)
+    {
+        return new Vector3(v2.x, v2.y, 0);
+    }
+
     public static Vector2 GetPosByAxiel(int x, int y){
         Vector2 result = new Vector2();
 
@@ -80,5 +85,27 @@ public class HexagonUtils {
         GameObject.Destroy(oldObj);
         GameObject newObj = GameObject.Instantiate(obj) as GameObject;
         newObj.transform.position = WorldPos;
+    }
+
+    public static int GetDirectionByAngle(Vector3 v1, Vector3 v2)
+    {
+        
+
+        Vector2 tmp = new Vector2(v2.x - v1.x, v2.y - v1.y);
+        Vector2 zeroV = Vector2.right;
+
+        var angle = Vector3.Angle(tmp, zeroV);
+
+
+        if (tmp.y < 0)
+        {
+            angle = Vector3.Angle(zeroV* -1, tmp) + 180;
+        }
+
+        angle += 30;
+
+        int result = ((int)(angle / 60)) % 6;
+        Debug.Log(result);
+        return result;
     }
 }

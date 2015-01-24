@@ -24,6 +24,9 @@ public class LevelManager: MonoBehaviour {
 
     // Use this for initialization
     private void Start() {
+        HexagonUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(1, 2));
+        HexagonUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(0, 0));
+        HexagonUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(0, 4));
         LevelTime = 0;
         BeatCounter = 0;
         camera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -38,7 +41,14 @@ public class LevelManager: MonoBehaviour {
     private void BeatAction() {
         BeatCounter++;
 
+       // Debug.Log(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent);
+
         BeatCounterText.text = "Beats: " + BeatCounter;
+    }
+
+    public void LoseGame()
+    {
+        Debug.Log("LOOSE");
     }
 
     private void OnDestroy() {

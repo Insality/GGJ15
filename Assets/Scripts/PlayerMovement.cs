@@ -11,9 +11,14 @@ public class PlayerMovement: MonoBehaviour {
     private int _moveAction;
     private Vector2 _myPosition;
 
+
+    public int SaveStayBeats;
+    private int _alreadyStay;
+
     private void Start() {
         _curSide = 0;
         _moveAction = 0;
+        _alreadyStay = 0;
         _myPosition = gameObject.transform.position;
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent +=
@@ -26,6 +31,20 @@ public class PlayerMovement: MonoBehaviour {
         _curSide %= 6;
 
         PlayerBeatMovement();
+
+        // change bomb color:
+        float percBomb = _alreadyStay/(float)SaveStayBeats;
+        
+        if (_alreadyStay == 0)
+        {
+            percBomb = 0;
+        }
+
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f - percBomb, 1f - percBomb);
+        if (_alreadyStay == SaveStayBeats)
+        {
+            Debug.Log("BOOOM");
+        }
     }
 
     private void PlayerBeatMovement() {
@@ -33,6 +52,14 @@ public class PlayerMovement: MonoBehaviour {
         
         Vector3 _oldPos = _myPosition;
 
+        if (_moveAction == 0)
+        {
+            _alreadyStay++;
+        }
+        else
+        {
+            _alreadyStay = 0;
+        }
 
         if (_moveAction == -1){
             _myPosition += HexagonUtils.GetVectorBySide((_curSide + 3) % 6);
@@ -41,6 +68,7 @@ public class PlayerMovement: MonoBehaviour {
         if (_moveAction == 1){
             _myPosition += HexagonUtils.GetVectorBySide(_curSide);
         }
+
         _moveAction = 0;
 
         GameObject objAtNextPos = HexagonUtils.GetObjByWorldPos(_myPosition);
@@ -50,6 +78,9 @@ public class PlayerMovement: MonoBehaviour {
                 _myPosition = _oldPos;
             }
         }
+
+        //Quaternion tmp = Quaternion.Euler(0, 0, HexagonUtils.GetAngleBySide(_curSide) - 30);
+        //transform.rotation = tmp;
 
         if (objAtNextPos == null) {
             _myPosition = _oldPos;

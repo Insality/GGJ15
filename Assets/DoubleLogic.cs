@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HunterLogic : GeneralProjectileLogic {
+public class DoubleLogic : GeneralProjectileLogic
+{
 
     public int LifeBeatTime;
     private int _curLifeBeatTime;
     public int MoveEveryBeat;
-    public int HuntBeatTime;
-    [HideInInspector]
     public int Direction;
+    public int DoubleTimes;
+    public int DoublePeriod;
+
+
+
+    public GameObject DoublePrefab;
 
     private Vector3 _goalMove;
-    private Transform _playerTransform;
 
     // Use this for initialization
     void Start()
@@ -20,7 +24,6 @@ public class HunterLogic : GeneralProjectileLogic {
 
         _curLifeBeatTime = 0;
         _goalMove = transform.position;
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -51,36 +54,29 @@ public class HunterLogic : GeneralProjectileLogic {
         }
     }
 
-
-    void MoveLogic()
+    public void MoveLogic()
     {
-        HuntBeatTime--;
-        if (_curLifeBeatTime % MoveEveryBeat == 0)
+        if (_curLifeBeatTime % MoveEveryBeat == MoveEveryBeat-1)
         {
-            // if Hunt Time!
-            if (HuntBeatTime > 0)
+
+            if (DoubleTimes > 0 && ( (_curLifeBeatTime % DoublePeriod) == DoublePeriod-1))
             {
-                Direction = HexagonUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
+                DoubleTimes--;
+                GameObject newDouble = Instantiate(DoublePrefab) as GameObject;
+                newDouble.GetComponent<DoubleLogic>().Direction = (Direction + 1) % 6;
+                newDouble.GetComponent<DoubleLogic>().DoubleTimes = DoubleTimes;
+                newDouble.GetComponent<DoubleLogic>().BeatProjectileLogic();
+
+                newDouble = Instantiate(DoublePrefab) as GameObject;
+                newDouble.GetComponent<DoubleLogic>().Direction = (Direction + 5) % 6;
+                newDouble.GetComponent<DoubleLogic>().DoubleTimes = DoubleTimes;
+                newDouble.GetComponent<DoubleLogic>().BeatProjectileLogic();
+
+                //Direction = (Direction + 5) % 6;
             }
             //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
             _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
             //transform.position += new Vector3(moveV2.x, moveV2.y);
-
-
-            GameObject NextWall = HexagonUtils.GetObjByWorldPos(_goalMove);
-
-            if (NextWall == null)
-            {
-                gameObject.SetActive(false);
-            }
-
-            if (NextWall != null)
-            {
-                if (NextWall.ToString().StartsWith("HexagonWall"))
-                {
-                    gameObject.SetActive(false);
-                }
-            }
         }
     }
 }

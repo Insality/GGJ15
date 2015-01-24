@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HunterLogic : GeneralProjectileLogic {
-
+public class BombLogic : GeneralProjectileLogic {
     public int LifeBeatTime;
     private int _curLifeBeatTime;
     public int MoveEveryBeat;
-    public int HuntBeatTime;
-    [HideInInspector]
     public int Direction;
 
+
+    public GameObject WarnBombPrefab;
     private Vector3 _goalMove;
-    private Transform _playerTransform;
 
     // Use this for initialization
     void Start()
@@ -20,7 +18,6 @@ public class HunterLogic : GeneralProjectileLogic {
 
         _curLifeBeatTime = 0;
         _goalMove = transform.position;
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -36,11 +33,37 @@ public class HunterLogic : GeneralProjectileLogic {
 
         if (_curLifeBeatTime >= LifeBeatTime)
         {
+            Bomb();
             DestroyProjectile();
         }
 
         MoveLogic();
     }
+
+    private void Bomb()
+    {
+        GameObject bomb;
+
+        bomb = Instantiate(WarnBombPrefab) as GameObject;
+        bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(0));
+
+        bomb = Instantiate(WarnBombPrefab) as GameObject;
+        bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(1));
+
+        bomb = Instantiate(WarnBombPrefab) as GameObject;
+        bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(2));
+
+        bomb = Instantiate(WarnBombPrefab) as GameObject;
+        bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(3));
+
+        bomb = Instantiate(WarnBombPrefab) as GameObject;
+        bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(4));
+
+        bomb = Instantiate(WarnBombPrefab) as GameObject;
+        bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(5));
+
+    }
+
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
@@ -51,36 +74,14 @@ public class HunterLogic : GeneralProjectileLogic {
         }
     }
 
-
     void MoveLogic()
     {
-        HuntBeatTime--;
         if (_curLifeBeatTime % MoveEveryBeat == 0)
         {
-            // if Hunt Time!
-            if (HuntBeatTime > 0)
-            {
-                Direction = HexagonUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
-            }
             //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
             _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
             //transform.position += new Vector3(moveV2.x, moveV2.y);
-
-
-            GameObject NextWall = HexagonUtils.GetObjByWorldPos(_goalMove);
-
-            if (NextWall == null)
-            {
-                gameObject.SetActive(false);
-            }
-
-            if (NextWall != null)
-            {
-                if (NextWall.ToString().StartsWith("HexagonWall"))
-                {
-                    gameObject.SetActive(false);
-                }
-            }
         }
     }
+
 }
