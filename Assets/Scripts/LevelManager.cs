@@ -17,6 +17,8 @@ public class LevelManager: MonoBehaviour {
     public AudioClip GameStart;
     public AudioClip PlayerHurt;
     public AudioClip AgainLevel;
+    public AudioClip LevelWin;
+    public AudioClip LevelFailed;
 
 
     public String[] Level13Texts;
@@ -33,6 +35,8 @@ public class LevelManager: MonoBehaviour {
     public String[] StartTexts;
     private float _badTextShowTimer;
     private GameObject camera;
+
+    private bool _isNewRecord;
 
     public Text FinalText;
     public Text RecordText;
@@ -55,6 +59,7 @@ public class LevelManager: MonoBehaviour {
 
         FinalText.enabled = false;
         RecordText.enabled = false;
+        _isNewRecord = false;
 
         isWin = false;
 
@@ -129,7 +134,13 @@ public class LevelManager: MonoBehaviour {
     private void Update() {
         LevelTime += Time.deltaTime;
         FreeTime -= Time.deltaTime;
+
+        if (LevelTime > BestTime && !_isNewRecord){
+            AudioSource.PlayClipAtPoint(NewRecord, transform.position);
+            _isNewRecord = true;
+        }
         _badTextShowTimer -= Time.deltaTime;
+        TimePlayed += Time.deltaTime;
         LevelTimeText.text = string.Format("{0:F2}", LevelTime);
 
         LivesText.text = "Lives: " + PlayersLife;
@@ -166,11 +177,26 @@ public class LevelManager: MonoBehaviour {
 
     public void StopGame() {
         Debug.Log("You win!");
+        BestTime = 130f;
+
+        isGameEnd = true;
+        isWin = true;
+
+        FinalText.enabled = true;
+        RecordText.enabled = true;
+        LevelTimeText.enabled = false;
+
+        RecordText.text = (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter, (int)(TimePlayed/60)));
+        FinalText.text = "AMAZING!!!\nYOU BEAT THE BEAT-MONSTER\n";
+        Time.timeScale = 0;
+
     }
 
     public void LoseGameFinal() {
         Debug.Log("LOOSE");
+        AudioSource.PlayClipAtPoint(LevelFailed, transform.position, 0.8f);
         _badTextShowTimer = 5f;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().volume = 0.3f;
         BadText.text = LooseTexts[Random.Range(0, LooseTexts.Length)];
 
 
@@ -185,7 +211,7 @@ public class LevelManager: MonoBehaviour {
         RecordText.enabled = true;
         LevelTimeText.enabled = false;
 
-        RecordText.text = (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\n", LevelTime, BestTime, DeathCounter));
+        RecordText.text = (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter, (int)(TimePlayed / 60)));
 
         FinalText.text = "ESC TO EXIT\nR TO RESTART";
 
