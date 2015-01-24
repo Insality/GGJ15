@@ -7,6 +7,7 @@ public class BombLogic: GeneralProjectileLogic {
 
 
     public GameObject WarnBombPrefab;
+    public AudioClip Explo;
     private int _curLifeBeatTime;
     private Vector3 _goalMove;
 
@@ -55,6 +56,8 @@ public class BombLogic: GeneralProjectileLogic {
 
         bomb = Instantiate(WarnBombPrefab) as GameObject;
         bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(5));
+
+        AudioSource.PlayClipAtPoint(Explo, transform.position);
     }
 
 

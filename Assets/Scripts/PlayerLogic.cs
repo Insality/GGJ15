@@ -3,6 +3,7 @@
 public class PlayerLogic: MonoBehaviour {
     public float GodModTime;
     private CircleCollider2D myCC2d;
+    public AudioClip PlayerOutGodMode;
     // Use this for initialization
     private void Start() {
         GodModTime = 0;
@@ -19,6 +20,7 @@ public class PlayerLogic: MonoBehaviour {
             if (!myCC2d.enabled){
                 GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
                 GetComponent<PlayerMovement>().ResetStayCounter();
+                AudioSource.PlayClipAtPoint(PlayerOutGodMode, transform.position);
             }
             myCC2d.enabled = true;
             

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LevelManager: MonoBehaviour {
     // Statistics
@@ -8,37 +9,38 @@ public class LevelManager: MonoBehaviour {
     public static int DeathCounter;
     public static float TimePlayed;
 
-    public int CurLevel = 0;
-    public int PlayersLife;
-    public float nextLevelTime;
-
-    [HideInInspector] public int BeatCounter;
-    public Text LivesText;
     public Text BadText;
-    private float _badTextShowTimer = 0;
-
-    public float LevelTime;
+    [HideInInspector] public int BeatCounter;
+    public int CurLevel = 0;
     public float FreeTime;
-    public Text LevelTimeText;
-    private GameObject camera;
-    public GameObject Player;
-
-    public AudioClip NewRecord;
-    public AudioClip[] LevelAnounce;
-    public AudioClip GameStart;
     public AudioClip GameOver;
+    public AudioClip GameStart;
+    public AudioClip PlayerHurt;
+    public AudioClip AgainLevel;
 
 
-    public String[] StartTexts;
     public String[] Level13Texts;
     public String[] Level45Texts;
     public String[] Level6Texts;
+    public AudioClip[] LevelAnounce;
+    public float LevelTime;
+    public Text LevelTimeText;
+    public Text LivesText;
     public String[] LooseTexts;
+    public AudioClip NewRecord;
+    public GameObject Player;
+    public int PlayersLife;
+    public String[] StartTexts;
+    private float _badTextShowTimer;
+    private GameObject camera;
 
+    public Text FinalText;
+    public Text RecordText;
 
 
     private bool isGameEnd;
     private bool isWin;
+    public float nextLevelTime;
 
     // Use this for initialization
     private void Start() {
@@ -51,6 +53,9 @@ public class LevelManager: MonoBehaviour {
         nextLevelTime = 5;
         FreeTime = 0;
 
+        FinalText.enabled = false;
+        RecordText.enabled = false;
+
         isWin = false;
 
         camera.GetComponent<BeatTracker>().BeatEvent += (sender, args)=>BeatAction();
@@ -62,7 +67,6 @@ public class LevelManager: MonoBehaviour {
         AudioSource.PlayClipAtPoint(GameStart, transform.position);
     }
 
-    
 
     private void BeatAction() {
         BeatCounter++;
@@ -79,15 +83,10 @@ public class LevelManager: MonoBehaviour {
         }
         FreeTime = 3f;
         Player.GetComponent<PlayerLogic>().SetGodMode(3f);
-
+        AudioSource.PlayClipAtPoint(PlayerHurt, transform.position);
     }
 
-    public void LoseGameFinal() {
-        Debug.Log("LOOSE");
-        _badTextShowTimer = 5f;
-        BadText.text = LooseTexts[UnityEngine.Random.Range(0, LooseTexts.Length)];
 
-    }
 
     private void OnDestroy() {
         PlayerPrefs.SetFloat("besttime", BestTime);
@@ -97,10 +96,11 @@ public class LevelManager: MonoBehaviour {
 
     private void UpgradeLevel() {
         CurLevel++;
-        if (CurLevel <= 5) {
-            AudioSource.PlayClipAtPoint(LevelAnounce[CurLevel-1], transform.position);
+        if (CurLevel <= 5){
+            AudioSource.PlayClipAtPoint(LevelAnounce[CurLevel - 1], transform.position);
         }
 
+        FreeTime = 3f;
         nextLevelTime += 20;
 
         ShowBadText();
@@ -109,19 +109,19 @@ public class LevelManager: MonoBehaviour {
     public void ShowBadText() {
         _badTextShowTimer = 3f;
         if (CurLevel == 1){
-            BadText.text = StartTexts[UnityEngine.Random.Range(0, StartTexts.Length)];
+            BadText.text = StartTexts[Random.Range(0, StartTexts.Length)];
         }
 
         if (CurLevel > 1 && CurLevel <= 3){
-            BadText.text = Level13Texts[UnityEngine.Random.Range(0, Level13Texts.Length)];
+            BadText.text = Level13Texts[Random.Range(0, Level13Texts.Length)];
         }
 
         if (CurLevel == 4 || CurLevel == 5){
-            BadText.text = Level45Texts[UnityEngine.Random.Range(0, Level45Texts.Length)];
+            BadText.text = Level45Texts[Random.Range(0, Level45Texts.Length)];
         }
 
         if (CurLevel == 6){
-            BadText.text = Level6Texts[UnityEngine.Random.Range(0, Level6Texts.Length)];
+            BadText.text = Level6Texts[Random.Range(0, Level6Texts.Length)];
         }
     }
 
@@ -142,20 +142,53 @@ public class LevelManager: MonoBehaviour {
             FreeTime = 0;
         }
 
-        if (LevelTime >= 130) {
-            if (!isWin) {
+        if (LevelTime >= 130){
+            if (!isWin){
                 isWin = true;
                 StopGame();
             }
         }
 
-        if (nextLevelTime < LevelTime) {
+        if (nextLevelTime < LevelTime){
             UpgradeLevel();
         }
+
+        if (isGameEnd) {
+            if (Input.GetKeyDown(KeyCode.R)) {
+                AudioSource.PlayClipAtPoint(AgainLevel, transform.position);
+                Time.timeScale = 1;
+                Application.LoadLevel(Application.loadedLevel);
+            }
+        }
+
     }
 
 
     public void StopGame() {
         Debug.Log("You win!");
+    }
+
+    public void LoseGameFinal() {
+        Debug.Log("LOOSE");
+        _badTextShowTimer = 5f;
+        BadText.text = LooseTexts[Random.Range(0, LooseTexts.Length)];
+
+
+        DeathCounter++;
+        isGameEnd = true;
+
+        if (BestTime < LevelTime) {
+            BestTime = LevelTime;
+        }
+
+        FinalText.enabled = true;
+        RecordText.enabled = true;
+        LevelTimeText.enabled = false;
+
+        RecordText.text = (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\n", LevelTime, BestTime, DeathCounter));
+
+        FinalText.text = "ESC TO EXIT\nR TO RESTART";
+
+        Time.timeScale = 0;
     }
 }
