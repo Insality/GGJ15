@@ -2,8 +2,8 @@
 
 public class PlayerLogic: MonoBehaviour {
     public float GodModTime;
-    private CircleCollider2D myCC2d;
     public AudioClip PlayerOutGodMode;
+    private CircleCollider2D myCC2d;
     // Use this for initialization
     private void Start() {
         GodModTime = 0;
@@ -12,7 +12,6 @@ public class PlayerLogic: MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-
         GodModTime -= Time.deltaTime;
         if (GodModTime < 0){
             GodModTime = 0;
@@ -23,9 +22,7 @@ public class PlayerLogic: MonoBehaviour {
                 AudioSource.PlayClipAtPoint(PlayerOutGodMode, transform.position);
             }
             myCC2d.enabled = true;
-            
         }
-
     }
 
     public void SetGodMode(float time) {

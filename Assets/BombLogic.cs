@@ -2,12 +2,12 @@
 
 public class BombLogic: GeneralProjectileLogic {
     public int Direction;
+    public AudioClip Explo;
     public int LifeBeatTime;
     public int MoveEveryBeat;
 
 
     public GameObject WarnBombPrefab;
-    public AudioClip Explo;
     private int _curLifeBeatTime;
     private Vector3 _goalMove;
 

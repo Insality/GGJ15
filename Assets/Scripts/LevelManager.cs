@@ -8,38 +8,37 @@ public class LevelManager: MonoBehaviour {
     public static float BestTime;
     public static int DeathCounter;
     public static float TimePlayed;
+    public AudioClip AgainLevel;
 
     public Text BadText;
     [HideInInspector] public int BeatCounter;
     public int CurLevel = 0;
+    public Text FinalText;
     public float FreeTime;
     public AudioClip GameOver;
     public AudioClip GameStart;
-    public AudioClip PlayerHurt;
-    public AudioClip AgainLevel;
-    public AudioClip LevelWin;
-    public AudioClip LevelFailed;
 
 
     public String[] Level13Texts;
     public String[] Level45Texts;
     public String[] Level6Texts;
     public AudioClip[] LevelAnounce;
+    public AudioClip LevelFailed;
     public float LevelTime;
     public Text LevelTimeText;
+    public AudioClip LevelWin;
     public Text LivesText;
     public String[] LooseTexts;
     public AudioClip NewRecord;
     public GameObject Player;
+    public AudioClip PlayerHurt;
     public int PlayersLife;
+    public Text RecordText;
     public String[] StartTexts;
     private float _badTextShowTimer;
-    private GameObject camera;
 
     private bool _isNewRecord;
-
-    public Text FinalText;
-    public Text RecordText;
+    private GameObject camera;
 
 
     private bool isGameEnd;
@@ -90,7 +89,6 @@ public class LevelManager: MonoBehaviour {
         Player.GetComponent<PlayerLogic>().SetGodMode(3f);
         AudioSource.PlayClipAtPoint(PlayerHurt, transform.position);
     }
-
 
 
     private void OnDestroy() {
@@ -164,14 +162,13 @@ public class LevelManager: MonoBehaviour {
             UpgradeLevel();
         }
 
-        if (isGameEnd) {
-            if (Input.GetKeyDown(KeyCode.R)) {
+        if (isGameEnd){
+            if (Input.GetKeyDown(KeyCode.R)){
                 AudioSource.PlayClipAtPoint(AgainLevel, transform.position);
                 Time.timeScale = 1;
                 Application.LoadLevel(Application.loadedLevel);
             }
         }
-
     }
 
 
@@ -186,10 +183,11 @@ public class LevelManager: MonoBehaviour {
         RecordText.enabled = true;
         LevelTimeText.enabled = false;
 
-        RecordText.text = (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter, (int)(TimePlayed/60)));
+        RecordText.text =
+            (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter,
+                (int) (TimePlayed/60)));
         FinalText.text = "AMAZING!!!\nYOU BEAT THE BEAT-MONSTER\n";
         Time.timeScale = 0;
-
     }
 
     public void LoseGameFinal() {
@@ -203,7 +201,7 @@ public class LevelManager: MonoBehaviour {
         DeathCounter++;
         isGameEnd = true;
 
-        if (BestTime < LevelTime) {
+        if (BestTime < LevelTime){
             BestTime = LevelTime;
         }
 
@@ -211,7 +209,9 @@ public class LevelManager: MonoBehaviour {
         RecordText.enabled = true;
         LevelTimeText.enabled = false;
 
-        RecordText.text = (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter, (int)(TimePlayed / 60)));
+        RecordText.text =
+            (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter,
+                (int) (TimePlayed/60)));
 
         FinalText.text = "ESC TO EXIT\nR TO RESTART";
 

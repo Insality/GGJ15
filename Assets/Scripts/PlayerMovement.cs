@@ -43,7 +43,7 @@ public class PlayerMovement: MonoBehaviour {
             percBomb = 0;
         }
 
-        var curColor = GetComponent<SpriteRenderer>().color;
+        Color curColor = GetComponent<SpriteRenderer>().color;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f - percBomb, 1f - percBomb, curColor.a);
         if (_alreadyStay == SaveStayBeats){
             GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();

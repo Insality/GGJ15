@@ -65,7 +65,7 @@ public class BeatTracker: MonoBehaviour {
     }
 
     private void BeatAction() {
-       /// Debug.Log("Beat! " + GetBassBeat());
+        /// Debug.Log("Beat! " + GetBassBeat());
         BeatEvent(null, null);
     }
 }

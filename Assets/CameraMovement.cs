@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 
 public class CameraMovement: MonoBehaviour {
-    public GameObject player;
-    public bool IsScaleCamera;
-
     public int CameraScale = 7;
+    public bool IsScaleCamera;
+    private Camera _camera;
 
     private BeatTracker _cameraBeatTracker;
-    private float _scaleTrashold = 0.1f;
     private float _deltaHeight;
-    private Camera _camera;
+    private float _scaleTrashold = 0.1f;
+    public GameObject player;
 
     // Use this for initialization
     private void Start() {

@@ -5,15 +5,15 @@ public class TurretLogic: MonoBehaviour {
     public GameObject DoubleProjectile;
     public int FireBeatTemp;
     public GameObject HunterProjectile;
+    public AudioClip LaserClip;
     public GameObject LaserProjectile;
     public GameObject OneDirProjectile;
     public GameObject SnakeProjectile;
 
-    public AudioClip LaserClip;
     [HideInInspector] public int TurretNumber;
     private int _curBeat;
 
-    private LevelManager _levelManagerScript ;
+    private LevelManager _levelManagerScript;
 
     // Use this for initialization
     private void Start() {
@@ -36,12 +36,11 @@ public class TurretLogic: MonoBehaviour {
 
         // Firing::
         if (_levelManagerScript.FreeTime == 0){
-
-//            PatternSingleLaser(2);
-//            PatternTripleLaser();
+            //            PatternSingleLaser(2);
+            //            PatternTripleLaser();
             //PatternHunterAndSnake(1);
             //PatternSingleShot(1);
-//            PatternTripleShot(1);
+            //            PatternTripleShot(1);
             //PatternShotAndSnake(2);
             PatternTripleBombRound(2);
             //PatternDoubleAndSnake(1);
@@ -101,7 +100,8 @@ public class TurretLogic: MonoBehaviour {
             FireBeatTemp = temp;
             GameObject _proj;
             _proj = Instantiate(OneDirProjectile) as GameObject;
-            _proj.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
+            _proj.transform.position = transform.position +
+                                       HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
             _proj.GetComponent<ProjectileLogic>().Direction = ((TurretNumber + 3)%6);
         }
     }
@@ -117,7 +117,8 @@ public class TurretLogic: MonoBehaviour {
             FireBeatTemp = temp;
             GameObject _proj;
             _proj = Instantiate(SnakeProjectile) as GameObject;
-            _proj.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3) % 6)));
+            _proj.transform.position = transform.position +
+                                       HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
             _proj.GetComponent<SnakeLogic>().Direction = ((TurretNumber + 3)%6);
         }
     }
@@ -127,7 +128,8 @@ public class TurretLogic: MonoBehaviour {
             FireBeatTemp = temp;
             GameObject _proj;
             _proj = Instantiate(HunterProjectile) as GameObject;
-            _proj.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3) % 6)));
+            _proj.transform.position = transform.position +
+                                       HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
             _proj.GetComponent<HunterLogic>().Direction = ((TurretNumber + 3)%6);
         }
     }
@@ -137,7 +139,8 @@ public class TurretLogic: MonoBehaviour {
             FireBeatTemp = temp;
             GameObject _proj;
             _proj = Instantiate(BombProjectile) as GameObject;
-            _proj.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3) % 6)));
+            _proj.transform.position = transform.position +
+                                       HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
             _proj.GetComponent<BombLogic>().Direction = ((TurretNumber + 3)%6);
             _proj.GetComponent<BombLogic>().LifeBeatTime = far;
         }
@@ -148,7 +151,8 @@ public class TurretLogic: MonoBehaviour {
             FireBeatTemp = temp;
             GameObject _proj;
             _proj = Instantiate(DoubleProjectile) as GameObject;
-            _proj.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3) % 6)));
+            _proj.transform.position = transform.position +
+                                       HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
             _proj.GetComponent<DoubleLogic>().Direction = ((TurretNumber + 3)%6);
             _proj.GetComponent<DoubleLogic>().DoubleTimes = depth;
         }
