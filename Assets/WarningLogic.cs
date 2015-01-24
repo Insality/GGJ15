@@ -57,7 +57,7 @@ public class WarningLogic : MonoBehaviour {
         {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent -= (sender, args) => BeatProjectileLogic();
             gameObject.SetActive(false);
-            //Destroy(gameObject);
+            //  k   Destroy(gameObject);
         }
 
 

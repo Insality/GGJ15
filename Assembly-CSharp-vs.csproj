@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraMovement.cs" />
+     <Compile Include="Assets\HunterLogic.cs" />
      <Compile Include="Assets\ProjectileLogic.cs" />
      <Compile Include="Assets\Scripts\BeatLineLogic.cs" />
      <Compile Include="Assets\Scripts\BeatScripts\BeatScaler.cs" />

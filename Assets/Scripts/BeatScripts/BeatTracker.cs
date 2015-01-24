@@ -19,7 +19,7 @@ public class BeatTracker: MonoBehaviour {
 
         // Null action to avoid null exception
         BeatEvent += delegate(object sender, EventArgs args) {  };
-       //audio.time = 6;
+       audio.time = 6;
     }
 
     private void Update() {

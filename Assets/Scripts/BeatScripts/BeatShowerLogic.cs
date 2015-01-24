@@ -11,7 +11,7 @@ public class BeatShowerLogic : MonoBehaviour {
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += (sender, args) => SpawnBeatLine();
 	}
 
-
+    
     void SpawnBeatLine(){
         // to right
         GameObject _beatRight = Instantiate(BeatLine) as GameObject;

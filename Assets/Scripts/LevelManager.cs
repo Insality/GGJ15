@@ -8,6 +8,7 @@ public class LevelManager: MonoBehaviour {
     public static float TimePlayed;
 
     public Text BeatCounterText;
+    public Text LevelTimeText;
     
     [HideInInspector]
     public int BeatCounter;
@@ -48,5 +49,8 @@ public class LevelManager: MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
+        LevelTime += Time.deltaTime;
+        LevelTimeText.text = string.Format("TIME: {0:F2}", LevelTime);
+
     }
 }
