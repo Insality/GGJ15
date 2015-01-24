@@ -7,16 +7,14 @@ public class LevelManager: MonoBehaviour {
     public static int DeathCounter;
     public static float TimePlayed;
 
+    [HideInInspector] public int BeatCounter;
     public Text BeatCounterText;
-    public Text LevelTimeText;
-    
-    [HideInInspector]
-    public int BeatCounter;
 
 
     public AudioClip[] LevelAnounce;
 
     public float LevelTime;
+    public Text LevelTimeText;
     private GameObject camera;
 
     private bool isGameEnd;
@@ -32,7 +30,7 @@ public class LevelManager: MonoBehaviour {
         camera = GameObject.FindGameObjectWithTag("MainCamera");
 
         camera.GetComponent<BeatTracker>().BeatEvent += (sender, args)=>BeatAction();
-        
+
         BestTime = PlayerPrefs.GetFloat("besttime", 0);
         DeathCounter = PlayerPrefs.GetInt("deathtimes", 0);
         TimePlayed = PlayerPrefs.GetFloat("timesplayed", 0);
@@ -41,13 +39,12 @@ public class LevelManager: MonoBehaviour {
     private void BeatAction() {
         BeatCounter++;
 
-       // Debug.Log(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent);
+        // Debug.Log(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent);
 
         BeatCounterText.text = "Beats: " + BeatCounter;
     }
 
-    public void LoseGame()
-    {
+    public void LoseGame() {
         Debug.Log("LOOSE");
     }
 
@@ -61,6 +58,5 @@ public class LevelManager: MonoBehaviour {
     private void Update() {
         LevelTime += Time.deltaTime;
         LevelTimeText.text = string.Format("TIME: {0:F2}", LevelTime);
-
     }
 }

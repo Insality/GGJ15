@@ -1,32 +1,28 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class ProjectileLogic : GeneralProjectileLogic
-{
-
-    public int LifeBeatTime;
-    private int _curLifeBeatTime;
-    public int MoveEveryBeat;
+public class ProjectileLogic: GeneralProjectileLogic {
     public int Direction;
+    public int LifeBeatTime;
+    public int MoveEveryBeat;
+    private int _curLifeBeatTime;
 
     private Vector3 _goalMove;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    private void Start() {
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
 
         _curLifeBeatTime = 0;
         _goalMove = transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    private void Update() {
         Vector2 velocity = Vector2.zero;
         transform.position = Vector2.SmoothDamp(transform.position, _goalMove, ref velocity, 0.03f);
-	}
+    }
 
-    public override void BeatProjectileLogic()
-    {
+    public override void BeatProjectileLogic() {
         _curLifeBeatTime += 1;
 
         if (_curLifeBeatTime >= LifeBeatTime){
@@ -37,23 +33,18 @@ public class ProjectileLogic : GeneralProjectileLogic
     }
 
 
-    public override void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
+    public override void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Player"){
             GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
             DestroyProjectile();
         }
     }
 
-    void MoveLogic(){
-        if (_curLifeBeatTime % MoveEveryBeat == 0)
-        {
+    private void MoveLogic() {
+        if (_curLifeBeatTime%MoveEveryBeat == 0){
             //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
             _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
             //transform.position += new Vector3(moveV2.x, moveV2.y);
         }
     }
-
-
 }

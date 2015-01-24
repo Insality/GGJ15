@@ -1,25 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class DoubleLogic : GeneralProjectileLogic
-{
-
-    public int LifeBeatTime;
-    private int _curLifeBeatTime;
-    public int MoveEveryBeat;
+public class DoubleLogic: GeneralProjectileLogic {
     public int Direction;
-    public int DoubleTimes;
     public int DoublePeriod;
 
 
-
     public GameObject DoublePrefab;
+    public int DoubleTimes;
+    public int LifeBeatTime;
+    public int MoveEveryBeat;
+    private int _curLifeBeatTime;
 
     private Vector3 _goalMove;
 
     // Use this for initialization
-    void Start()
-    {
+    private void Start() {
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
 
         _curLifeBeatTime = 0;
@@ -27,48 +22,39 @@ public class DoubleLogic : GeneralProjectileLogic
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    private void Update() {
         Vector2 velocity = Vector2.zero;
         transform.position = Vector2.SmoothDamp(transform.position, _goalMove, ref velocity, 0.03f);
     }
 
-    public override void BeatProjectileLogic()
-    {
+    public override void BeatProjectileLogic() {
         _curLifeBeatTime += 1;
 
-        if (_curLifeBeatTime >= LifeBeatTime)
-        {
+        if (_curLifeBeatTime >= LifeBeatTime){
             DestroyProjectile();
         }
 
         MoveLogic();
     }
 
-    public override void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
+    public override void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Player"){
             GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
             DestroyProjectile();
         }
     }
 
-    public void MoveLogic()
-    {
-        if (_curLifeBeatTime % MoveEveryBeat == MoveEveryBeat-1)
-        {
-
-            if (DoubleTimes > 0 && ( (_curLifeBeatTime % DoublePeriod) == DoublePeriod-1))
-            {
+    public void MoveLogic() {
+        if (_curLifeBeatTime%MoveEveryBeat == MoveEveryBeat - 1){
+            if (DoubleTimes > 0 && ((_curLifeBeatTime%DoublePeriod) == DoublePeriod - 1)){
                 DoubleTimes--;
-                GameObject newDouble = Instantiate(DoublePrefab) as GameObject;
-                newDouble.GetComponent<DoubleLogic>().Direction = (Direction + 1) % 6;
+                var newDouble = Instantiate(DoublePrefab) as GameObject;
+                newDouble.GetComponent<DoubleLogic>().Direction = (Direction + 1)%6;
                 newDouble.GetComponent<DoubleLogic>().DoubleTimes = DoubleTimes;
                 newDouble.GetComponent<DoubleLogic>().BeatProjectileLogic();
 
                 newDouble = Instantiate(DoublePrefab) as GameObject;
-                newDouble.GetComponent<DoubleLogic>().Direction = (Direction + 5) % 6;
+                newDouble.GetComponent<DoubleLogic>().Direction = (Direction + 5)%6;
                 newDouble.GetComponent<DoubleLogic>().DoubleTimes = DoubleTimes;
                 newDouble.GetComponent<DoubleLogic>().BeatProjectileLogic();
 
