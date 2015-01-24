@@ -11,12 +11,15 @@ public class TurretLogic: MonoBehaviour {
     [HideInInspector] public int TurretNumber;
     private int _curBeat;
 
+    private LevelManager _levelManagerScript ;
 
     // Use this for initialization
     private void Start() {
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent +=
             (sender, args)=>TurretBeat();
         _curBeat = 0;
+
+        _levelManagerScript = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
     }
 
     // Update is called once per frame
@@ -29,15 +32,19 @@ public class TurretLogic: MonoBehaviour {
     private void TurretBeat() {
         _curBeat++;
 
-        //PatternSingleLaser(2);
-        PatternTripleLaser();
-        //PatternHunterAndSnake(1);
-        //PatternSingleShot(1);
-        //PatternTripleShot(1);
-        //PatternShotAndSnake(2);
-        //PatternTripleBombRound(2);
-        //PatternDoubleAndSnake(1);
-        //PatternDoubleAndDouble(2);
+        // Firing::
+        if (_levelManagerScript.FreeTime == 0){
+
+            //PatternSingleLaser(2);
+//            PatternTripleLaser();
+            //PatternHunterAndSnake(1);
+            //PatternSingleShot(1);
+            PatternTripleShot(1);
+            //PatternShotAndSnake(2);
+            //PatternTripleBombRound(2);
+            //PatternDoubleAndSnake(1);
+            //PatternDoubleAndDouble(2);
+        }
     }
 
     private void PatternSingleLaser(int i) {

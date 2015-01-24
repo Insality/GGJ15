@@ -18,7 +18,7 @@ public class BeatTracker: MonoBehaviour {
 
         // Null action to avoid null exception
         BeatEvent += delegate { };
-        //audio.time = 6;
+        audio.time = 6;
     }
 
     private void Update() {
@@ -65,7 +65,7 @@ public class BeatTracker: MonoBehaviour {
     }
 
     private void BeatAction() {
-        Debug.Log("Beat! " + GetBassBeat());
+       /// Debug.Log("Beat! " + GetBassBeat());
         BeatEvent(null, null);
     }
 }
