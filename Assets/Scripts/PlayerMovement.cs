@@ -29,14 +29,31 @@ public class PlayerMovement: MonoBehaviour {
     }
 
     private void PlayerBeatMovement() {
+
+        
+        Vector3 _oldPos = _myPosition;
+
+
         if (_moveAction == -1){
-            _myPosition += HexagonUtils.GetVectorBySide((_curSide + 3)%6);
+            _myPosition += HexagonUtils.GetVectorBySide((_curSide + 3) % 6);
         }
 
         if (_moveAction == 1){
             _myPosition += HexagonUtils.GetVectorBySide(_curSide);
         }
         _moveAction = 0;
+
+        GameObject objAtNextPos = HexagonUtils.GetObjByWorldPos(_myPosition);
+        if (objAtNextPos != null){
+            if (objAtNextPos.ToString().StartsWith("HexagonWall"))
+            {
+                _myPosition = _oldPos;
+            }
+        }
+
+        if (objAtNextPos == null) {
+            _myPosition = _oldPos;
+        }
     }
 
     private void Update() {
@@ -57,9 +74,18 @@ public class PlayerMovement: MonoBehaviour {
         Vector2 _curPosition = transform.position;
 
         Vector2 bluePos = _curPosition + HexagonUtils.GetVectorBySide((_curSide + 1)%6);
+        if (_moveAction == 1)
+        {
+            bluePos += HexagonUtils.GetVectorBySide((_curSide + 1) % 6) * 0.15f;
+        }
         BlueArrow.transform.position = bluePos;
+        
 
         Vector2 redPos = _curPosition + HexagonUtils.GetVectorBySide((_curSide + 3 + 1)%6);
+        if (_moveAction == -1)
+        {
+            redPos += HexagonUtils.GetVectorBySide((_curSide + 3 + 1) % 6) * 0.15f;
+        }
         RedArrow.transform.position = redPos;
 
         // Arrow rotation

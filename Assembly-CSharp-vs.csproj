@@ -46,16 +46,21 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BeatLineLogic.cs" />
-     <Compile Include="Assets\LevelHexagonCreator.cs" />
+     <Compile Include="Assets\CameraMovement.cs" />
+     <Compile Include="Assets\ProjectileLogic.cs" />
+     <Compile Include="Assets\Scripts\BeatLineLogic.cs" />
      <Compile Include="Assets\Scripts\BeatScripts\BeatScaler.cs" />
      <Compile Include="Assets\Scripts\BeatScripts\BeatShowerLogic.cs" />
      <Compile Include="Assets\Scripts\BeatScripts\BeatTracker.cs" />
      <Compile Include="Assets\Scripts\CameraShake.cs" />
      <Compile Include="Assets\Scripts\HexagonUtils.cs" />
+     <Compile Include="Assets\Scripts\LevelHexagonCreator.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\PlayerLogic.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\TurretLogic.cs" />
+     <Compile Include="Assets\WallCollider.cs" />
+     <Compile Include="Assets\WarningLogic.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

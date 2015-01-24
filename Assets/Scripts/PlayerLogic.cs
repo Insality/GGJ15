@@ -22,4 +22,12 @@ public class PlayerLogic : MonoBehaviour {
         //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(5) * 10), Color.cyan);
 
 	}
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Projectile")
+        {
+            Debug.Log("LOOOSER");
+        }
+    }
 }
