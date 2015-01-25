@@ -111,6 +111,10 @@ public class LevelManager: MonoBehaviour {
 
     public void ShowBadText() {
         _badTextShowTimer = 3f;
+
+        BadText.GetComponent<SlowlyAppear>().Reset();
+//        BadText.GetComponent<SlowlyAppear>().
+
         if (CurLevel == 1){
             BadText.text = StartTexts[Random.Range(0, StartTexts.Length)];
         }

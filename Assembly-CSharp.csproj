@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\PlayerLogic.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\SlowlyAppear.cs" />
      <Compile Include="Assets\SnakeLogic.cs" />
      <Compile Include="Assets\TurretLogic.cs" />
      <Compile Include="Assets\WallCollider.cs" />
