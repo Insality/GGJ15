@@ -46,7 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BombLogic.cs" />
      <Compile Include="Assets\CameraMovement.cs" />
+     <Compile Include="Assets\DoubleLogic.cs" />
+     <Compile Include="Assets\GeneralProjectileLogic.cs" />
      <Compile Include="Assets\HunterLogic.cs" />
      <Compile Include="Assets\Menu.cs" />
      <Compile Include="Assets\ProjectileLogic.cs" />
@@ -60,8 +63,11 @@
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\PlayerLogic.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\SlowlyAppear.cs" />
+     <Compile Include="Assets\SnakeLogic.cs" />
      <Compile Include="Assets\TurretLogic.cs" />
      <Compile Include="Assets\WallCollider.cs" />
+     <Compile Include="Assets\WarnBombLogic.cs" />
      <Compile Include="Assets\WarningLogic.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity4.6/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
