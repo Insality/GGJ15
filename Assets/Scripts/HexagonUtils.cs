@@ -81,6 +81,14 @@ public class HexagonUtils {
         newObj.transform.position = WorldPos;
     }
 
+    public static void ReplaceWith(GameObject obj, Vector2 WorldPos)
+    {
+        GameObject oldObj = GetObjByWorldPos(WorldPos);
+        Object.Destroy(oldObj);
+        var newObj = Object.Instantiate(obj) as GameObject;
+        newObj.transform.position = WorldPos;
+    }
+
     public static int GetDirectionByAngle(Vector3 v1, Vector3 v2) {
         var tmp = new Vector2(v2.x - v1.x, v2.y - v1.y);
         Vector2 zeroV = Vector2.right;

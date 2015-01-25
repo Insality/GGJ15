@@ -100,6 +100,99 @@ public class LevelHexagonCreator: MonoBehaviour {
         //        HexagonUtils.ReplaceWith(HexagonTileWall, -2, 0);
     }
 
+    public void ClearWalls()
+    {
+        var walls = GameObject.FindGameObjectsWithTag("HexTile");
+        foreach (var wall in walls)
+        {
+            if (wall.ToString().StartsWith("HexagonW"))
+            {
+                HexagonUtils.ReplaceWith(HexagonTile, wall.transform.position);
+            }
+        }
+
+        HexagonUtils.ReplaceWith(HexagonTile, 0, 0);
+    }
+    public void CreateLevel(int level)
+    {
+        ClearWalls();
+        if (level == 0)
+        {
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, 0);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 0, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 0, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, -0);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, 1);
+        }
+
+        if (level == 2)
+        {
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, -2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 2, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, 2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -2, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, -1);
+        }
+
+        if (level == 4)
+        {
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, -2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 2, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, 2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -2, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, -1);
+
+            // out side
+
+            HexagonUtils.ReplaceWith(HexagonTileWall, -2, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, -3);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 3, -2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 2, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, 3);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -3, 2);
+
+        }
+
+        if (level == 5)
+        {
+            HexagonUtils.ReplaceWith(HexagonTileWall, -4, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -5, 2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -5, 3);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -4, 3);
+
+            HexagonUtils.ReplaceWith(HexagonTileWall, 4, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 5, -2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 5, -3);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 4, -3);
+
+            HexagonUtils.ReplaceWith(HexagonTileWall, -3, 4);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -3, 5);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -2, 5);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, 4);
+
+            HexagonUtils.ReplaceWith(HexagonTileWall, 3, -4);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 3, -5);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 2, -5);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, -4);
+
+
+            HexagonUtils.ReplaceWith(HexagonTileWall, -3, -1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -3, -2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -2, -3);
+            HexagonUtils.ReplaceWith(HexagonTileWall, -1, -3);
+
+            HexagonUtils.ReplaceWith(HexagonTileWall, 3, 1);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 3, 2);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 2, 3);
+            HexagonUtils.ReplaceWith(HexagonTileWall, 1, 3);
+        }
+
+
+    }
+
     private Vector2 GetHexCoord(int xw, int yw) {
         //return new Vector2(x, y);
 

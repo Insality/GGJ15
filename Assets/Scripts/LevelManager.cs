@@ -34,6 +34,7 @@ public class LevelManager: MonoBehaviour {
     public AudioClip PlayerHurt;
     public int PlayersLife;
     public Text RecordText;
+    public Text CurLevelText;
     public String[] StartTexts;
     private float _badTextShowTimer;
 
@@ -44,6 +45,11 @@ public class LevelManager: MonoBehaviour {
     private bool isGameEnd;
     private bool isWin;
     public float nextLevelTime;
+
+    public int CurrentTactic;
+    private float _changeTacticTime = 7f;
+    private float _curChangeTacticTime = 0f;
+    public int CurTurretActive = 0;
 
     // Use this for initialization
     private void Start() {
@@ -69,6 +75,8 @@ public class LevelManager: MonoBehaviour {
         TimePlayed = PlayerPrefs.GetFloat("timesplayed", 0);
 
         AudioSource.PlayClipAtPoint(GameStart, transform.position);
+
+        GetComponent<LevelHexagonCreator>().CreateLevel(0);
     }
 
 
@@ -99,7 +107,10 @@ public class LevelManager: MonoBehaviour {
 
     private void UpgradeLevel() {
         CurLevel++;
-        if (CurLevel <= 5){
+        _curChangeTacticTime = 0f;
+        GetComponent<LevelHexagonCreator>().CreateLevel(CurLevel);
+        CurLevelText.text = "Level " + CurLevel; 
+        if (CurLevel <= 6){
             AudioSource.PlayClipAtPoint(LevelAnounce[CurLevel - 1], transform.position);
         }
 
@@ -137,6 +148,17 @@ public class LevelManager: MonoBehaviour {
         LevelTime += Time.deltaTime;
         FreeTime -= Time.deltaTime;
 
+        _curChangeTacticTime += Time.deltaTime;
+
+        if (_curChangeTacticTime > _changeTacticTime)
+        {
+            _curChangeTacticTime = 0f;
+            CurrentTactic += Random.Range(1, 3  );
+            CurrentTactic = CurrentTactic % 3;
+            CurTurretActive = Random.Range(0, 6);
+            Debug.Log("CHoose tactic " + CurrentTactic);
+        }
+
         if (LevelTime > BestTime && !_isNewRecord){
             AudioSource.PlayClipAtPoint(NewRecord, transform.position);
             _isNewRecord = true;
@@ -145,7 +167,7 @@ public class LevelManager: MonoBehaviour {
         TimePlayed += Time.deltaTime;
         LevelTimeText.text = string.Format("{0:F2}", LevelTime);
 
-        LivesText.text = "Lives: " + PlayersLife;
+        LivesText.text = "Lives " + PlayersLife;
 
         if (_badTextShowTimer < 0){
             BadText.text = "";

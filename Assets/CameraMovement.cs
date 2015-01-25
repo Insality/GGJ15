@@ -5,6 +5,8 @@ public class CameraMovement: MonoBehaviour {
     public bool IsScaleCamera;
     private Camera _camera;
 
+    public GameObject fon;
+
     private BeatTracker _cameraBeatTracker;
     private float _deltaHeight;
     private float _scaleTrashold = 0.1f;
@@ -25,6 +27,10 @@ public class CameraMovement: MonoBehaviour {
         goalV3.z = -10;
         transform.position = Vector2.SmoothDamp(transform.position, goalV3, ref velocity, 0.02f);
         transform.position += new Vector3(0, 0, -10);
+
+        fon.transform.position = transform.position * -1;
+        fon.transform.position += new Vector3(0, 0, 20);
+
 
         if (IsScaleCamera){
             // ScaleCoef - from 0 to 1, beat power in current moment
