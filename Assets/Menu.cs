@@ -35,6 +35,15 @@ public class Menu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (isHelpCalled == 1)
+        {
+            HelpWindow.SetActive(true);
+        }
+        else
+        {
+            HelpWindow.SetActive(false);
+        }
+
 		Vector2 velocity = Vector2.zero;
 		Quaternion _TurtleRot = Quaternion.Euler (0, 0, TurtleDirection * 60);
 		transform.rotation = Quaternion.Lerp(transform.rotation, _TurtleRot, 0.4f);
@@ -51,23 +60,28 @@ public class Menu : MonoBehaviour {
 			}
 			TextColor ();
 		}
-		/*if (Input.GetKeyUp(KeyCode.Return)) {
+		if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Space)) {
 			switch (TurtleDirection)
 			{
 			case 0:
-				//загрузка игры
+                Application.LoadLevel("Test");
 				break;
 			case 1:
 				//загрузка рекордов
 				break;
 			case 3:
-				//выход из игры
+                Application.Quit();
 				break;
 			case 5:
-				//CallHelp();
+				CallHelp();
 				break;
 			}
-		}*/
+		}
+
+        if ((isHelpCalled == 1) && (Input.anyKeyDown)) {
+                        //Destroy (HelpWindow);
+						isHelpCalled = 0;
+				}
 
 	}
 	//номера спрайтов:
@@ -83,7 +97,7 @@ public class Menu : MonoBehaviour {
 	void TextColor()
 	{
 		if (TurtleDirection == 0) {
-			Debug.Log (TurtleDirection + "SDSDSDDS");
+			//Debug.Log (TurtleDirection + "SDSDSDDS");
 			_start.GetComponent<SpriteRenderer>().sprite = redmenu_1;
 			_options.GetComponent<SpriteRenderer>().sprite = whitemenu_3;
 			_exit.GetComponent<SpriteRenderer>().sprite = whitemenu_2;
@@ -110,11 +124,11 @@ public class Menu : MonoBehaviour {
 	}
 	void CallHelp(){
 		if (isHelpCalled == 0) {
-						Instantiate (HelpWindow);
+                        //Instantiate (HelpWindow);
 						isHelpCalled = 1;
 				}
-		if ((isHelpCalled == 1) && (Input.GetKeyUp (KeyCode.Escape))) {
-						Destroy (HelpWindow);
+		if ((isHelpCalled == 1) && (Input.anyKeyDown)) {
+                        //Destroy (HelpWindow);
 						isHelpCalled = 0;
 				}
 	}

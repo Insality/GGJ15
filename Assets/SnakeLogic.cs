@@ -63,6 +63,21 @@ public class SnakeLogic: GeneralProjectileLogic {
                 Direction += side;
                 Direction %= 6;
             }
+
+            GameObject NextWall = HexagonUtils.GetObjByWorldPos(_goalMove);
+
+            if (NextWall == null)
+            {
+                gameObject.SetActive(false);
+            }
+
+            if (NextWall != null)
+            {
+                if (NextWall.ToString().StartsWith("HexagonWall"))
+                {
+                    gameObject.SetActive(false);
+                }
+            }
             //transform.position += new Vector3(moveV2.x, moveV2.y);
         }
     }

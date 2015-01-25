@@ -57,7 +57,7 @@ public class BombLogic: GeneralProjectileLogic {
         bomb = Instantiate(WarnBombPrefab) as GameObject;
         bomb.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(5));
 
-        AudioSource.PlayClipAtPoint(Explo, transform.position);
+        AudioSource.PlayClipAtPoint(Explo, transform.position, 0.5f);
     }
 
 

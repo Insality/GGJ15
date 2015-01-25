@@ -53,6 +53,8 @@ public class PlayerMovement: MonoBehaviour {
     private void PlayerBeatMovement() {
         Vector3 _oldPos = _myPosition;
 
+        int oldAlreadyStay = _alreadyStay;
+
         if (_moveAction == 0 && _playerLogic.GodModTime == 0){
             _alreadyStay++;
         }
@@ -82,6 +84,7 @@ public class PlayerMovement: MonoBehaviour {
 
         if (objAtNextPos == null){
             _myPosition = _oldPos;
+            _alreadyStay = oldAlreadyStay++;
         }
     }
 

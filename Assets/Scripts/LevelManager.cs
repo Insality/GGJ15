@@ -38,6 +38,8 @@ public class LevelManager: MonoBehaviour {
     public String[] StartTexts;
     private float _badTextShowTimer;
 
+
+    public Image UnderImage;
     private bool _isNewRecord;
     private GameObject camera;
 
@@ -67,6 +69,7 @@ public class LevelManager: MonoBehaviour {
         _isNewRecord = false;
 
         isWin = false;
+        UnderImage.enabled = false;
 
         camera.GetComponent<BeatTracker>().BeatEvent += (sender, args)=>BeatAction();
 
@@ -188,6 +191,12 @@ public class LevelManager: MonoBehaviour {
             UpgradeLevel();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 1;
+            Application.LoadLevel("Menu");
+        }
+
         if (isGameEnd){
             if (Input.GetKeyDown(KeyCode.R)){
                 AudioSource.PlayClipAtPoint(AgainLevel, transform.position);
@@ -208,6 +217,12 @@ public class LevelManager: MonoBehaviour {
         FinalText.enabled = true;
         RecordText.enabled = true;
         LevelTimeText.enabled = false;
+        UnderImage.enabled = true;
+
+        if (LevelTime >= 130)
+        {
+            LevelTime = 130f;
+        }
 
         RecordText.text =
             (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter,
@@ -221,6 +236,7 @@ public class LevelManager: MonoBehaviour {
         AudioSource.PlayClipAtPoint(LevelFailed, transform.position, 0.8f);
         _badTextShowTimer = 5f;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().volume = 0.3f;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().Pause();
         BadText.text = LooseTexts[Random.Range(0, LooseTexts.Length)];
 
 
@@ -234,6 +250,7 @@ public class LevelManager: MonoBehaviour {
         FinalText.enabled = true;
         RecordText.enabled = true;
         LevelTimeText.enabled = false;
+        UnderImage.enabled = true;
 
         RecordText.text =
             (string.Format("TIME: {0:F2}\nBEST: {1:f2}\nDeaths:{2}\nTime played:{3}", LevelTime, BestTime, DeathCounter,

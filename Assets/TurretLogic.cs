@@ -171,7 +171,7 @@ public class TurretLogic: MonoBehaviour {
             _proj.transform.position = transform.position + HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide((TurretNumber + 3)%6));
             _proj.GetComponent<WarningLogic>().Direction = ((TurretNumber + 3)%6);
 
-            AudioSource.PlayClipAtPoint(LaserClip, transform.position);
+            AudioSource.PlayClipAtPoint(LaserClip, transform.position, 0.3f);
         }
     }
 
