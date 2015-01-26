@@ -1,74 +1,65 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class WarningLogic : MonoBehaviour {
-
-    public int LifeBeatTime;
-    private int _curLifeBeatTime;
-    public int WarningBeatTime;
+public class WarningLogic: GeneralProjectileLogic {
+    public Sprite AttackSprite;
     public int Direction;
+    public int LifeBeatTime;
+    public float NextWarnDelay;
+    public int WarningBeatTime;
 
     public GameObject WarningPrefab;
-
-    public Sprite AttackSprite;
-    public float NextWarnDelay;
+    private int _curLifeBeatTime;
 
     // Use this for initialization
-    void Start()
-    {
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += (sender, args) => BeatProjectileLogic();
+    private void Start() {
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
         _curLifeBeatTime = 0;
     }
 
-    void CreateNextWarning()
-    {
+    private void CreateNextWarning() {
         Vector2 NextPos = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
         GameObject NextWall = HexagonUtils.GetObjByWorldPos(NextPos);
 
-        if (NextWall != null)
-        {
-            if (NextWall.ToString().StartsWith("Hexagon("))
-            {
-                GameObject nextWarn = Instantiate(WarningPrefab, NextPos, Quaternion.identity) as GameObject;
+        if (NextWall != null){
+            if (NextWall.ToString().StartsWith("Hexagon(")){
+                var nextWarn = Instantiate(WarningPrefab, NextPos, Quaternion.identity) as GameObject;
                 nextWarn.GetComponent<WarningLogic>().Direction = Direction;
             }
         }
-
     }
 
+    public override void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Player"){
+            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
+            DestroyProjectile();
+        }
+    }
+
+
     // Update is called once per frame
-    void Update()
-    {
+    private void Update() {
         NextWarnDelay -= Time.deltaTime;
 
-        if (NextWarnDelay <= 0)
-        {
+        if (NextWarnDelay <= 0){
             CreateNextWarning();
             NextWarnDelay = 500;
         }
-        
     }
 
-    void BeatProjectileLogic()
-    {
+    public override void BeatProjectileLogic() {
         _curLifeBeatTime += 1;
 
-        if (_curLifeBeatTime >= LifeBeatTime)
-        {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent -= (sender, args) => BeatProjectileLogic();
-            gameObject.SetActive(false);
-            //  k   Destroy(gameObject);
+        if (_curLifeBeatTime >= LifeBeatTime){
+            DestroyProjectile();
         }
 
 
-        if (_curLifeBeatTime >= WarningBeatTime)
-        {
+        if (_curLifeBeatTime >= WarningBeatTime){
             GetComponent<SpriteRenderer>().sprite = AttackSprite;
             GetComponent<CircleCollider2D>().enabled = true;
         }
     }
 
-    void MoveLogic()
-    {
+    private void MoveLogic() {
     }
 }

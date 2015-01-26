@@ -1,33 +1,33 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PlayerLogic : MonoBehaviour {
+public class PlayerLogic: MonoBehaviour {
+    public float GodModTime;
+    public AudioClip PlayerOutGodMode;
+    private CircleCollider2D myCC2d;
+    // Use this for initialization
+    private void Start() {
+        GodModTime = 0;
+        myCC2d = GetComponent<CircleCollider2D>();
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    private void Update() {
+        GodModTime -= Time.deltaTime;
+        if (GodModTime < 0){
+            GodModTime = 0;
 
-	    Vector2 tmp = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-
-
-        //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(0) * 10), Color.cyan);
-        //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(1) * 10), Color.cyan);
-        //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(2) * 10), Color.cyan);
-        //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(3) * 10), Color.cyan);
-        //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(4) * 10), Color.cyan);
-        //Debug.DrawLine(tmp, tmp + (HexagonUtils.GetVectorBySide(5) * 10), Color.cyan);
-
-	}
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Projectile")
-        {
-            Debug.Log("LOOOSER");
+            if (!myCC2d.enabled){
+                GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                GetComponent<PlayerMovement>().ResetStayCounter();
+                AudioSource.PlayClipAtPoint(PlayerOutGodMode, transform.position);
+            }
+            myCC2d.enabled = true;
         }
+    }
+
+    public void SetGodMode(float time) {
+        GodModTime = time;
+        myCC2d.enabled = false;
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.6f);
     }
 }
