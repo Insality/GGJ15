@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 
-public class BeatShowerLogic: MonoBehaviour {
-    public GameObject BeatLine;
+namespace Assets.Scripts.BeatScripts {
+    public class BeatShowerLogic: MonoBehaviour {
+        public GameObject BeatLine;
 
-    // Use this for initialization
-    private void Start() {
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent +=
-            (sender, args)=>SpawnBeatLine();
-    }
+        // Use this for initialization
+        private void Start() {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent +=
+                (sender, args)=>SpawnBeatLine();
+        }
 
 
-    private void SpawnBeatLine() {
-        // to right
-        var _beatRight = Instantiate(BeatLine) as GameObject;
-        _beatRight.transform.position = transform.position + new Vector3(-0.1f, 0, 1);
-        _beatRight.GetComponent<BeatLineLogic>().MoveSide = 1;
+        private void SpawnBeatLine() {
+            // to right
+            var beatRight = Instantiate(BeatLine) as GameObject;
+            if (beatRight != null){
+                beatRight.transform.position = transform.position + new Vector3(-0.1f, 0, 1);
+                beatRight.GetComponent<BeatLineLogic>().MoveSide = 1;
+            }
 
-        // to left
-        var _beatLeft = Instantiate(BeatLine) as GameObject;
-        _beatLeft.transform.position = transform.position + new Vector3(0.1f, 0, 1);
-        _beatLeft.GetComponent<BeatLineLogic>().MoveSide = -1;
-    }
-
-    private void Update() {
+            // to left
+            var beatLeft = Instantiate(BeatLine) as GameObject;
+            if (beatLeft != null){
+                beatLeft.transform.position = transform.position + new Vector3(0.1f, 0, 1);
+                beatLeft.GetComponent<BeatLineLogic>().MoveSide = -1;
+            }
+        }
     }
 }
