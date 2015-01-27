@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts {
-    public class HexagonUtils {
+    public class GameUtils {
         public static Vector2 GetVectorBySide(int side) {
             var result = new Vector2(0, 0);
 
@@ -81,7 +81,7 @@ namespace Assets.Scripts {
         }
 
         public static void ReplaceWith(GameObject obj, Vector2 worldPos) {
-            GameObject oldObj = GetObjByWorldPos(worldPos);
+            var oldObj = GetObjByWorldPos(worldPos);
             Object.Destroy(oldObj);
             var newObj = Object.Instantiate(obj) as GameObject;
             newObj.transform.position = worldPos;

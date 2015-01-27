@@ -50,14 +50,14 @@ namespace Assets.Scripts.ProjectileScripts {
             if (_curLifeBeatTime%MoveEveryBeat == 0){
                 // if Hunt Time!
                 if (HuntBeatTime > 0){
-                    Direction = HexagonUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
+                    Direction = GameUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
                 }
-                //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
-                _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
+                //var moveV2 = GameUtils.GetVectorBySide(Direction);
+                _goalMove = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
                 //transform.position += new Vector3(moveV2.x, moveV2.y);
 
 
-                GameObject nextWall = HexagonUtils.GetObjByWorldPos(_goalMove);
+                GameObject nextWall = GameUtils.GetObjByWorldPos(_goalMove);
 
                 if (nextWall == null){
                     gameObject.SetActive(false);

@@ -21,7 +21,7 @@ namespace Assets.Scripts {
             GameObject curHexTile;
             for (int i = 0; i < BoardSize; i++){
                 curHexTile = Instantiate(HexagonTile) as GameObject;
-                curHexTile.transform.position = HexagonUtils.GetVectorBySide(4)*i;
+                curHexTile.transform.position = GameUtils.GetVectorBySide(4)*i;
 
 
                 // corner
@@ -32,13 +32,13 @@ namespace Assets.Scripts {
                 for (int j = 1; j < BoardSize; j++){
                     // to 2 side:
                     var curHexTileSecond = Instantiate(HexagonTile) as GameObject;
-                    Vector2 v2Temp = HexagonUtils.GetVectorBySide(2)*j;
+                    Vector2 v2Temp = GameUtils.GetVectorBySide(2)*j;
                     curHexTileSecond.transform.position = curHexTile.transform.position +
                                                           new Vector3(v2Temp.x, v2Temp.y);
 
                     // To 0 side
                     var curHexTileSecond2 = Instantiate(HexagonTile) as GameObject;
-                    v2Temp = HexagonUtils.GetVectorBySide(0)*j;
+                    v2Temp = GameUtils.GetVectorBySide(0)*j;
                     curHexTileSecond2.transform.position = curHexTile.transform.position +
                                                            new Vector3(v2Temp.x, v2Temp.y);
 
@@ -59,7 +59,7 @@ namespace Assets.Scripts {
             // upper right part
             for (int i = 1; i < BoardSize; i++){
                 curHexTile = Instantiate(HexagonTile) as GameObject;
-                curHexTile.transform.position = HexagonUtils.GetVectorBySide(1)*i;
+                curHexTile.transform.position = GameUtils.GetVectorBySide(1)*i;
 
                 if (i == BoardSize - 1){
                     _corners[1] = curHexTile.transform.position;
@@ -68,20 +68,20 @@ namespace Assets.Scripts {
                 for (int j = 1; j < BoardSize - i; j++){
                     // to 2 side:
                     var curHexTileSecond = Instantiate(HexagonTile) as GameObject;
-                    Vector2 v2Temp = HexagonUtils.GetVectorBySide(2)*j;
+                    Vector2 v2Temp = GameUtils.GetVectorBySide(2)*j;
                     curHexTileSecond.transform.position = curHexTile.transform.position +
                                                           new Vector3(v2Temp.x, v2Temp.y);
 
                     // To 0 side
                     curHexTileSecond = Instantiate(HexagonTile) as GameObject;
-                    v2Temp = HexagonUtils.GetVectorBySide(0)*j;
+                    v2Temp = GameUtils.GetVectorBySide(0)*j;
                     curHexTileSecond.transform.position = curHexTile.transform.position +
                                                           new Vector3(v2Temp.x, v2Temp.y);
                 }
             }
 
             foreach (Vector2 corner in _corners){
-                Destroy(HexagonUtils.GetObjByWorldPos(corner));
+                Destroy(GameUtils.GetObjByWorldPos(corner));
             }
 
 
@@ -95,94 +95,94 @@ namespace Assets.Scripts {
 
                 // TODO: do it!
                 curTurret.transform.localRotation =
-                    Quaternion.Euler(new Vector3(0, 0, HexagonUtils.GetAngleBySide(i) - 90));
+                    Quaternion.Euler(new Vector3(0, 0, GameUtils.GetAngleBySide(i) - 90));
             }
 
             // Wall Creation
 
-            //        HexagonUtils.ReplaceWith(HexagonTileWall, -2, 0);
+            //        GameUtils.ReplaceWith(HexagonTileWall, -2, 0);
         }
 
         public void ClearWalls() {
             GameObject[] walls = GameObject.FindGameObjectsWithTag("HexTile");
             foreach (GameObject wall in walls){
                 if (wall.ToString().StartsWith("HexagonW")){
-                    HexagonUtils.ReplaceWith(HexagonTile, wall.transform.position);
+                    GameUtils.ReplaceWith(HexagonTile, wall.transform.position);
                 }
             }
 
-            HexagonUtils.ReplaceWith(HexagonTile, 0, 0);
+            GameUtils.ReplaceWith(HexagonTile, 0, 0);
         }
 
         public void CreateLevel(int level) {
             ClearWalls();
             if (level == 0){
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, 0);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 0, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 0, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, -0);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, 0);
+                GameUtils.ReplaceWith(HexagonTileWall, 0, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 0, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, -0);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, 1);
             }
 
             if (level == 2){
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, -2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 2, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, 2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -2, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, -2);
+                GameUtils.ReplaceWith(HexagonTileWall, 2, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, 2);
+                GameUtils.ReplaceWith(HexagonTileWall, -2, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, -1);
             }
 
             if (level == 4){
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, -2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 2, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, 2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -2, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, -2);
+                GameUtils.ReplaceWith(HexagonTileWall, 2, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, 2);
+                GameUtils.ReplaceWith(HexagonTileWall, -2, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, -1);
 
                 // out side
 
-                HexagonUtils.ReplaceWith(HexagonTileWall, -2, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, -3);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 3, -2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 2, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, 3);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -3, 2);
+                GameUtils.ReplaceWith(HexagonTileWall, -2, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, -3);
+                GameUtils.ReplaceWith(HexagonTileWall, 3, -2);
+                GameUtils.ReplaceWith(HexagonTileWall, 2, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, 3);
+                GameUtils.ReplaceWith(HexagonTileWall, -3, 2);
             }
 
             if (level == 5){
-                HexagonUtils.ReplaceWith(HexagonTileWall, -4, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -5, 2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -5, 3);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -4, 3);
+                GameUtils.ReplaceWith(HexagonTileWall, -4, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, -5, 2);
+                GameUtils.ReplaceWith(HexagonTileWall, -5, 3);
+                GameUtils.ReplaceWith(HexagonTileWall, -4, 3);
 
-                HexagonUtils.ReplaceWith(HexagonTileWall, 4, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 5, -2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 5, -3);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 4, -3);
+                GameUtils.ReplaceWith(HexagonTileWall, 4, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, 5, -2);
+                GameUtils.ReplaceWith(HexagonTileWall, 5, -3);
+                GameUtils.ReplaceWith(HexagonTileWall, 4, -3);
 
-                HexagonUtils.ReplaceWith(HexagonTileWall, -3, 4);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -3, 5);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -2, 5);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, 4);
+                GameUtils.ReplaceWith(HexagonTileWall, -3, 4);
+                GameUtils.ReplaceWith(HexagonTileWall, -3, 5);
+                GameUtils.ReplaceWith(HexagonTileWall, -2, 5);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, 4);
 
-                HexagonUtils.ReplaceWith(HexagonTileWall, 3, -4);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 3, -5);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 2, -5);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, -4);
+                GameUtils.ReplaceWith(HexagonTileWall, 3, -4);
+                GameUtils.ReplaceWith(HexagonTileWall, 3, -5);
+                GameUtils.ReplaceWith(HexagonTileWall, 2, -5);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, -4);
 
 
-                HexagonUtils.ReplaceWith(HexagonTileWall, -3, -1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -3, -2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -2, -3);
-                HexagonUtils.ReplaceWith(HexagonTileWall, -1, -3);
+                GameUtils.ReplaceWith(HexagonTileWall, -3, -1);
+                GameUtils.ReplaceWith(HexagonTileWall, -3, -2);
+                GameUtils.ReplaceWith(HexagonTileWall, -2, -3);
+                GameUtils.ReplaceWith(HexagonTileWall, -1, -3);
 
-                HexagonUtils.ReplaceWith(HexagonTileWall, 3, 1);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 3, 2);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 2, 3);
-                HexagonUtils.ReplaceWith(HexagonTileWall, 1, 3);
+                GameUtils.ReplaceWith(HexagonTileWall, 3, 1);
+                GameUtils.ReplaceWith(HexagonTileWall, 3, 2);
+                GameUtils.ReplaceWith(HexagonTileWall, 2, 3);
+                GameUtils.ReplaceWith(HexagonTileWall, 1, 3);
             }
         }
 

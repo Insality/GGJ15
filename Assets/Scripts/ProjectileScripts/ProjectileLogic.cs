@@ -44,8 +44,8 @@ namespace Assets.Scripts.ProjectileScripts {
 
         private void MoveLogic() {
             if (_curLifeBeatTime%MoveEveryBeat == 0){
-                //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
-                _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
+                //var moveV2 = GameUtils.GetVectorBySide(Direction);
+                _goalMove = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
                 //transform.position += new Vector3(moveV2.x, moveV2.y);
             }
         }

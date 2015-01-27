@@ -53,7 +53,7 @@
     <Compile Include="Assets\Scripts\BeatScripts\BeatTracker.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\CameraShake.cs" />
-    <Compile Include="Assets\Scripts\HexagonUtils.cs" />
+    <Compile Include="Assets\Scripts\GameUtils.cs" />
     <Compile Include="Assets\Scripts\LevelHexagonCreator.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />

@@ -29,9 +29,9 @@ namespace Assets.Scripts {
 
         // Update is called once per frame
         private void Update() {
-            Debug.DrawLine(Vector3.zero, HexagonUtils.GetPosByAxiel(0, 1));
+            Debug.DrawLine(Vector3.zero, GameUtils.GetPosByAxiel(0, 1));
 
-            Debug.DrawLine(Vector3.zero, HexagonUtils.GetPosByAxiel(-2, 0));
+            Debug.DrawLine(Vector3.zero, GameUtils.GetPosByAxiel(-2, 0));
         }
 
         private void TurretBeat() {
@@ -47,7 +47,7 @@ namespace Assets.Scripts {
                         PatternSingleLaser(Random.Range(0, 6));
                     }
                     if (_levelManagerScript.CurrentTactic == 2){
-                        PatternSingleSnake(_levelManagerScript.CurTurretActive, 3);
+                        PatternSingleSnake(_levelManagerScript.CurTurretActive, 2);
                     }
                 }
 
@@ -145,7 +145,7 @@ namespace Assets.Scripts {
                 FireBeatTemp = 8;
                 var proj = Instantiate(LaserProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide((TurretNumber + 3)%6));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide((TurretNumber + 3)%6));
                 proj.GetComponent<WarningLogic>().Direction = ((TurretNumber + 3)%6);
 
                 AudioSource.PlayClipAtPoint(LaserClip, transform.position, 0.3f);
@@ -157,17 +157,17 @@ namespace Assets.Scripts {
                 FireBeatTemp = 8;
                 var proj = Instantiate(LaserProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide((TurretNumber + 3)%6));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide((TurretNumber + 3)%6));
                 proj.GetComponent<WarningLogic>().Direction = ((TurretNumber + 3)%6);
 
                 proj = Instantiate(LaserProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide((TurretNumber + 4)%6));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide((TurretNumber + 4)%6));
                 proj.GetComponent<WarningLogic>().Direction = ((TurretNumber + 4)%6);
 
                 proj = Instantiate(LaserProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide((TurretNumber + 2)%6));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide((TurretNumber + 2)%6));
                 proj.GetComponent<WarningLogic>().Direction = ((TurretNumber + 2)%6);
 
                 AudioSource.PlayClipAtPoint(LaserClip, transform.position);
@@ -190,12 +190,12 @@ namespace Assets.Scripts {
             //hunter
             PatternSingleHunter(i, 7);
             //snake
-            PatternSingleSnake((i + 3)%6, 3);
+            PatternSingleSnake((i + 3)%6, 2);
         }
 
         private void PatternShotAndSnake(int i) {
             PatternSingleShot(i, 3);
-            PatternSingleSnake((i + 3)%6, 3);
+            PatternSingleSnake((i + 3)%6, 2);
         }
 
         private void PatternTripleBombRound(int i) {
@@ -221,7 +221,7 @@ namespace Assets.Scripts {
         // hard!
         private void PatternDoubleAndSnake(int i) {
             PatternSingleDouble(i, 8, 2);
-            PatternSingleSnake((i + 3)%6, 3);
+            PatternSingleSnake((i + 3)%6, 2);
         }
 
         private void PatternOmegaDouble(int i) {
@@ -234,7 +234,7 @@ namespace Assets.Scripts {
                 FireBeatTemp = temp;
                 var proj = Instantiate(OneDirProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3)%6)));
                 proj.GetComponent<ProjectileLogic>().Direction = ((TurretNumber + 3)%6);
             }
         }
@@ -256,7 +256,7 @@ namespace Assets.Scripts {
                 FireBeatTemp = temp;
                 var proj = Instantiate(SnakeProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3)%6)));
                 proj.GetComponent<SnakeLogic>().Direction = ((TurretNumber + 3)%6);
             }
         }
@@ -266,7 +266,7 @@ namespace Assets.Scripts {
                 FireBeatTemp = temp;
                 var proj = Instantiate(HunterProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3)%6)));
                 proj.GetComponent<HunterLogic>().Direction = ((TurretNumber + 3)%6);
             }
         }
@@ -276,7 +276,7 @@ namespace Assets.Scripts {
                 FireBeatTemp = temp;
                 var proj = Instantiate(BombProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3)%6)));
                 proj.GetComponent<BombLogic>().Direction = ((TurretNumber + 3)%6);
                 proj.GetComponent<BombLogic>().LifeBeatTime = far;
             }
@@ -287,7 +287,7 @@ namespace Assets.Scripts {
                 FireBeatTemp = temp;
                 var proj = Instantiate(DoubleProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          HexagonUtils.GetV3FromV2(HexagonUtils.GetVectorBySide(((TurretNumber + 3)%6)));
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3)%6)));
                 proj.GetComponent<DoubleLogic>().Direction = ((TurretNumber + 3)%6);
                 proj.GetComponent<DoubleLogic>().DoubleTimes = depth;
             }

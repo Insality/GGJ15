@@ -55,9 +55,9 @@ namespace Assets.Scripts {
 
         // Use this for initialization
         private void Start() {
-            HexagonUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(1, 2));
-            HexagonUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(0, 0));
-            HexagonUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(0, 4));
+            GameUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(1, 2));
+            GameUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(0, 0));
+            GameUtils.GetDirectionByAngle(new Vector3(1, 1), new Vector3(0, 4));
             LevelTime = 0;
             BeatCounter = 0;
             NextLevelTime = 5;

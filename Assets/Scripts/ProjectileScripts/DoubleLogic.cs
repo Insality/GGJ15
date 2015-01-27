@@ -62,12 +62,12 @@ namespace Assets.Scripts.ProjectileScripts {
 
                     //Direction = (Direction + 5) % 6;
                 }
-                //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
-                _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
+                //var moveV2 = GameUtils.GetVectorBySide(Direction);
+                _goalMove = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
                 //transform.position += new Vector3(moveV2.x, moveV2.y);
 
 
-                GameObject nextWall = HexagonUtils.GetObjByWorldPos(_goalMove);
+                GameObject nextWall = GameUtils.GetObjByWorldPos(_goalMove);
 
                 if (nextWall == null){
                     gameObject.SetActive(false);

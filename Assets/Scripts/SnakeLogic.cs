@@ -50,9 +50,9 @@ namespace Assets.Scripts {
 
         public void MoveLogic() {
             if (_curLifeBeatTime%MoveEveryBeat == 0){
-                //var moveV2 = HexagonUtils.GetVectorBySide(Direction);
-                _goalMove = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
-                int dirToPlayer = HexagonUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
+                //var moveV2 = GameUtils.GetVectorBySide(Direction);
+                _goalMove = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
+                int dirToPlayer = GameUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
 
                 if (_curLifeBeatTime%ChangeEveryBeat == 0){
                     int side = ((dirToPlayer - Direction) + 6)%6;
@@ -62,7 +62,7 @@ namespace Assets.Scripts {
                     Direction %= 6;
                 }
 
-                GameObject nextWall = HexagonUtils.GetObjByWorldPos(_goalMove);
+                GameObject nextWall = GameUtils.GetObjByWorldPos(_goalMove);
 
                 if (nextWall == null){
                     gameObject.SetActive(false);

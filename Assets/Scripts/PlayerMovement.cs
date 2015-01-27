@@ -65,23 +65,23 @@ namespace Assets.Scripts {
             }
 
             if (_moveAction == -1){
-                _myPosition += HexagonUtils.GetVectorBySide((_curSide + 3)%6);
+                _myPosition += GameUtils.GetVectorBySide((_curSide + 3)%6);
             }
 
             if (_moveAction == 1){
-                _myPosition += HexagonUtils.GetVectorBySide(_curSide);
+                _myPosition += GameUtils.GetVectorBySide(_curSide);
             }
 
             _moveAction = 0;
 
-            GameObject objAtNextPos = HexagonUtils.GetObjByWorldPos(_myPosition);
+            GameObject objAtNextPos = GameUtils.GetObjByWorldPos(_myPosition);
             if (objAtNextPos != null){
                 if (objAtNextPos.ToString().StartsWith("HexagonWall")){
                     _myPosition = oldPos;
                 }
             }
 
-            //Quaternion tmp = Quaternion.Euler(0, 0, HexagonUtils.GetAngleBySide(_curSide) - 30);
+            //Quaternion tmp = Quaternion.Euler(0, 0, GameUtils.GetAngleBySide(_curSide) - 30);
             //transform.rotation = tmp;
 
             if (objAtNextPos == null){
@@ -119,24 +119,24 @@ namespace Assets.Scripts {
             // Arrow position. (+1) потому что показывают возможное движение на след. бит
             Vector2 curPosition = transform.position;
 
-            Vector2 bluePos = curPosition + HexagonUtils.GetVectorBySide((_curSide + 1)%6);
+            Vector2 bluePos = curPosition + GameUtils.GetVectorBySide((_curSide + 1)%6);
             if (_moveAction == 1){
-                bluePos += HexagonUtils.GetVectorBySide((_curSide + 1)%6)*0.19f;
+                bluePos += GameUtils.GetVectorBySide((_curSide + 1)%6)*0.19f;
             }
             BlueArrow.transform.position = bluePos;
 
 
-            Vector2 redPos = curPosition + HexagonUtils.GetVectorBySide((_curSide + 3 + 1)%6);
+            Vector2 redPos = curPosition + GameUtils.GetVectorBySide((_curSide + 3 + 1)%6);
             if (_moveAction == -1){
-                redPos += HexagonUtils.GetVectorBySide((_curSide + 3 + 1)%6)*0.19f;
+                redPos += GameUtils.GetVectorBySide((_curSide + 3 + 1)%6)*0.19f;
             }
             RedArrow.transform.position = redPos;
 
             // Arrow rotation
-            Quaternion blueRot = Quaternion.Euler(0, 0, HexagonUtils.GetAngleBySide((_curSide + 1)%6));
+            Quaternion blueRot = Quaternion.Euler(0, 0, GameUtils.GetAngleBySide((_curSide + 1)%6));
             BlueArrow.transform.rotation = blueRot;
 
-            Quaternion redRot = Quaternion.Euler(0, 0, HexagonUtils.GetAngleBySide((_curSide + 3 + 1)%6));
+            Quaternion redRot = Quaternion.Euler(0, 0, GameUtils.GetAngleBySide((_curSide + 3 + 1)%6));
             RedArrow.transform.rotation = redRot;
         }
     }

@@ -19,8 +19,8 @@ namespace Assets.Scripts.ProjectileScripts {
         }
 
         private void CreateNextWarning() {
-            Vector2 nextPos = HexagonUtils.GetVectorBySide(Direction) + HexagonUtils.GetV2FromV3(transform.position);
-            GameObject nextWall = HexagonUtils.GetObjByWorldPos(nextPos);
+            Vector2 nextPos = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
+            GameObject nextWall = GameUtils.GetObjByWorldPos(nextPos);
 
             if (nextWall != null){
                 if (nextWall.ToString().StartsWith("Hexagon(")){
