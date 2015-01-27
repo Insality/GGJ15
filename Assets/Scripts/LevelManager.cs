@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.BeatScripts;
+using Assets.Scripts.ProjectileScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -40,6 +43,7 @@ namespace Assets.Scripts {
         public GameObject Player;
         public AudioClip PlayerHurt;
         public int PlayersLife;
+        public List<MainProjectileLogic> Projectiles;
         public Text RecordText;
         public String[] StartTexts;
 
@@ -85,7 +89,10 @@ namespace Assets.Scripts {
         private void BeatAction() {
             BeatCounter++;
 
-            // Debug.Log(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent);
+            // Update every projectile:
+            foreach (MainProjectileLogic projectile in Projectiles.ToList()){
+                projectile.BeatProjectileLogic();
+            }
         }
 
         /// Just a damage player, not full lose game
@@ -157,7 +164,6 @@ namespace Assets.Scripts {
                 CurrentTactic += Random.Range(1, 3);
                 CurrentTactic = CurrentTactic%3;
                 CurTurretActive = Random.Range(0, 6);
-                Debug.Log("CHoose tactic " + CurrentTactic);
             }
 
             if (LevelTime > BestTime && !_isNewRecord){

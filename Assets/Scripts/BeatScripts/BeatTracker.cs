@@ -61,10 +61,6 @@ namespace Assets.Scripts.BeatScripts {
             //        Debug.Log(c1);
         }
 
-        public void TestAction() {
-            Debug.Log("Imtest");
-        }
-
         private void BeatAction() {
             BeatEvent(null, null);
         }

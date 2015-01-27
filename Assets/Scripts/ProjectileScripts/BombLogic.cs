@@ -1,23 +1,15 @@
-﻿using Assets.Scripts.BeatScripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.ProjectileScripts {
     public class BombLogic: MainProjectileLogic {
-        public int Direction;
         public AudioClip Explo;
-        public int LifeBeatTime;
-        public int MoveEveryBeat;
-
 
         public GameObject WarnBombPrefab;
-        private int _curLifeBeatTime;
         private Vector3 _goalMove;
 
         // Use this for initialization
-        private void Start() {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
-
-            _curLifeBeatTime = 0;
+        public void Start() {
+            base.Start();
             _goalMove = transform.position;
         }
 
@@ -28,9 +20,9 @@ namespace Assets.Scripts.ProjectileScripts {
         }
 
         public override void BeatProjectileLogic() {
-            _curLifeBeatTime += 1;
+            CurLifeBeatTime += 1;
 
-            if (_curLifeBeatTime >= LifeBeatTime){
+            if (CurLifeBeatTime >= LifeBeatTime){
                 Bomb();
                 DestroyProjectile();
             }
@@ -78,19 +70,9 @@ namespace Assets.Scripts.ProjectileScripts {
             AudioSource.PlayClipAtPoint(Explo, transform.position, 0.5f);
         }
 
-
-        public override void OnTriggerEnter2D(Collider2D other) {
-            if (other.tag == "Player"){
-                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
-                DestroyProjectile();
-            }
-        }
-
         private void MoveLogic() {
-            if (_curLifeBeatTime%MoveEveryBeat == 0){
-                //var moveV2 = GameUtils.GetVectorBySide(Direction);
+            if (CurLifeBeatTime%MoveEveryBeat == 0){
                 _goalMove = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
-                //transform.position += new Vector3(moveV2.x, moveV2.y);
             }
         }
     }

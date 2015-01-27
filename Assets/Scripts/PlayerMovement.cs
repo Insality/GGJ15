@@ -26,7 +26,7 @@ namespace Assets.Scripts {
             _alreadyStay = 0;
             _myPosition = gameObject.transform.position;
 
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent +=
+            Camera.main.GetComponent<BeatTracker>().BeatEvent +=
                 (sender, args)=>PlayerBeat();
 
             _playerLogic = GetComponent<PlayerLogic>();

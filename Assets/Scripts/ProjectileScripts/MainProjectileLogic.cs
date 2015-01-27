@@ -1,17 +1,30 @@
 ﻿using System;
-using Assets.Scripts.BeatScripts;
 using UnityEngine;
 using Object = System.Object;
 
 namespace Assets.Scripts.ProjectileScripts {
     public abstract class MainProjectileLogic: MonoBehaviour {
         public Event EventHandler;
+        [HideInInspector]
+        public LevelManager LevelManager;
+
+        public int Direction;
+        public int LifeBeatTime;
+        public int MoveEveryBeat;
+        protected int CurLifeBeatTime;
 
         public abstract void BeatProjectileLogic();
 
+        public virtual void Start() {
+            LevelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+            LevelManager.Projectiles.Add(this);
+
+            CurLifeBeatTime = 0;
+        }
+
         public virtual void OnTriggerEnter2D(Collider2D other) {
             if (other.tag == "Player"){
-                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
+                LevelManager.LoseGame();
                 DestroyProjectile();
             }
         }
@@ -21,8 +34,7 @@ namespace Assets.Scripts.ProjectileScripts {
         }
 
         public virtual void DestroyProjectile() {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent -= EventSub;
-
+            LevelManager.Projectiles.Remove(this);
             Destroy(gameObject);
         }
     }

@@ -27,13 +27,6 @@ namespace Assets.Scripts {
             _levelManagerScript = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         }
 
-        // Update is called once per frame
-        private void Update() {
-            Debug.DrawLine(Vector3.zero, GameUtils.GetPosByAxiel(0, 1));
-
-            Debug.DrawLine(Vector3.zero, GameUtils.GetPosByAxiel(-2, 0));
-        }
-
         private void TurretBeat() {
             _curBeat++;
 

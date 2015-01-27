@@ -1,21 +1,16 @@
-﻿using Assets.Scripts.BeatScripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.ProjectileScripts {
     public class WarningLogic: MainProjectileLogic {
         public Sprite AttackSprite;
-        public int Direction;
-        public int LifeBeatTime;
         public float NextWarnDelay;
         public int WarningBeatTime;
 
         public GameObject WarningPrefab;
-        private int _curLifeBeatTime;
 
         // Use this for initialization
-        private void Start() {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
-            _curLifeBeatTime = 0;
+        public void Start() {
+            base.Start();
         }
 
         private void CreateNextWarning() {
@@ -30,15 +25,6 @@ namespace Assets.Scripts.ProjectileScripts {
             }
         }
 
-        public override void OnTriggerEnter2D(Collider2D other) {
-            if (other.tag == "Player"){
-                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
-                DestroyProjectile();
-            }
-        }
-
-
-        // Update is called once per frame
         private void Update() {
             NextWarnDelay -= Time.deltaTime;
 
@@ -49,20 +35,17 @@ namespace Assets.Scripts.ProjectileScripts {
         }
 
         public override void BeatProjectileLogic() {
-            _curLifeBeatTime += 1;
+            CurLifeBeatTime += 1;
 
-            if (_curLifeBeatTime >= LifeBeatTime){
+            if (CurLifeBeatTime >= LifeBeatTime){
                 DestroyProjectile();
             }
 
 
-            if (_curLifeBeatTime >= WarningBeatTime){
+            if (CurLifeBeatTime >= WarningBeatTime){
                 GetComponent<SpriteRenderer>().sprite = AttackSprite;
                 GetComponent<CircleCollider2D>().enabled = true;
             }
-        }
-
-        private void MoveLogic() {
         }
     }
 }

@@ -1,22 +1,15 @@
-﻿using Assets.Scripts.BeatScripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.ProjectileScripts {
     public class HunterLogic: MainProjectileLogic {
-        [HideInInspector] public int Direction;
         public int HuntBeatTime;
-        public int LifeBeatTime;
-        public int MoveEveryBeat;
-        private int _curLifeBeatTime;
 
         private Vector3 _goalMove;
         private Transform _playerTransform;
 
         // Use this for initialization
-        private void Start() {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
-
-            _curLifeBeatTime = 0;
+        public void Start() {
+            base.Start();
             _goalMove = transform.position;
             _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -28,26 +21,18 @@ namespace Assets.Scripts.ProjectileScripts {
         }
 
         public override void BeatProjectileLogic() {
-            _curLifeBeatTime += 1;
+            CurLifeBeatTime += 1;
 
-            if (_curLifeBeatTime >= LifeBeatTime){
+            if (CurLifeBeatTime >= LifeBeatTime){
                 DestroyProjectile();
             }
 
             MoveLogic();
         }
 
-        public override void OnTriggerEnter2D(Collider2D other) {
-            if (other.tag == "Player"){
-                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
-                DestroyProjectile();
-            }
-        }
-
-
         private void MoveLogic() {
             HuntBeatTime--;
-            if (_curLifeBeatTime%MoveEveryBeat == 0){
+            if (CurLifeBeatTime%MoveEveryBeat == 0){
                 // if Hunt Time!
                 if (HuntBeatTime > 0){
                     Direction = GameUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
@@ -60,12 +45,12 @@ namespace Assets.Scripts.ProjectileScripts {
                 GameObject nextWall = GameUtils.GetObjByWorldPos(_goalMove);
 
                 if (nextWall == null){
-                    gameObject.SetActive(false);
+                    DestroyProjectile();
                 }
 
                 if (nextWall != null){
                     if (nextWall.ToString().StartsWith("HexagonWall")){
-                        gameObject.SetActive(false);
+                        DestroyProjectile();
                     }
                 }
             }

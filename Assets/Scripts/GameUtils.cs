@@ -81,7 +81,7 @@ namespace Assets.Scripts {
         }
 
         public static void ReplaceWith(GameObject obj, Vector2 worldPos) {
-            var oldObj = GetObjByWorldPos(worldPos);
+            GameObject oldObj = GetObjByWorldPos(worldPos);
             Object.Destroy(oldObj);
             var newObj = Object.Instantiate(obj) as GameObject;
             newObj.transform.position = worldPos;
@@ -101,7 +101,6 @@ namespace Assets.Scripts {
             angle += 30;
 
             int result = ((int) (angle/60))%6;
-            Debug.Log(result);
             return result;
         }
     }

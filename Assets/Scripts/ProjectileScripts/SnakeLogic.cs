@@ -5,21 +5,12 @@ using UnityEngine;
 namespace Assets.Scripts {
     public class SnakeLogic: MainProjectileLogic {
         public int ChangeEveryBeat;
-        public int Direction;
-        public int LifeBeatTime;
-        public int MoveEveryBeat;
-        private int _curLifeBeatTime;
 
         private Vector3 _goalMove;
         private Transform _playerTransform;
 
-        //private delegate _ev = (sender, args) => BeatProjectileLogic();
-
-        // Use this for initialization
-        private void Start() {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BeatTracker>().BeatEvent += EventSub;
-
-            _curLifeBeatTime = 0;
+        public void Start() {
+            base.Start();
             _goalMove = transform.position;
             _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -31,30 +22,21 @@ namespace Assets.Scripts {
         }
 
         public override void BeatProjectileLogic() {
-            _curLifeBeatTime += 1;
+            CurLifeBeatTime += 1;
 
-            if (_curLifeBeatTime >= LifeBeatTime){
+            if (CurLifeBeatTime >= LifeBeatTime){
                 DestroyProjectile();
-                //Destroy(gameObject);
+                return;
             }
-
             MoveLogic();
         }
 
-        public override void OnTriggerEnter2D(Collider2D other) {
-            if (other.tag == "Player"){
-                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().LoseGame();
-                DestroyProjectile();
-            }
-        }
-
         public void MoveLogic() {
-            if (_curLifeBeatTime%MoveEveryBeat == 0){
-                //var moveV2 = GameUtils.GetVectorBySide(Direction);
+            if (CurLifeBeatTime%MoveEveryBeat == 0){
                 _goalMove = GameUtils.GetVectorBySide(Direction) + GameUtils.GetV2FromV3(transform.position);
                 int dirToPlayer = GameUtils.GetDirectionByAngle(transform.position, _playerTransform.position);
 
-                if (_curLifeBeatTime%ChangeEveryBeat == 0){
+                if (CurLifeBeatTime%ChangeEveryBeat == 0){
                     int side = ((dirToPlayer - Direction) + 6)%6;
                     side = side >= 3 ? 5 : 1;
 
@@ -62,15 +44,15 @@ namespace Assets.Scripts {
                     Direction %= 6;
                 }
 
-                GameObject nextWall = GameUtils.GetObjByWorldPos(_goalMove);
+                var nextWall = GameUtils.GetObjByWorldPos(_goalMove);
 
                 if (nextWall == null){
-                    gameObject.SetActive(false);
+                    DestroyProjectile();
                 }
 
                 if (nextWall != null){
                     if (nextWall.ToString().StartsWith("HexagonWall")){
-                        gameObject.SetActive(false);
+                        DestroyProjectile();
                     }
                 }
             }

@@ -63,10 +63,10 @@
      <Compile Include="Assets\Scripts\ProjectileScripts\HunterLogic.cs" />
      <Compile Include="Assets\Scripts\ProjectileScripts\MainProjectileLogic.cs" />
      <Compile Include="Assets\Scripts\ProjectileScripts\ProjectileLogic.cs" />
+     <Compile Include="Assets\Scripts\ProjectileScripts\SnakeLogic.cs" />
      <Compile Include="Assets\Scripts\ProjectileScripts\WarnBombLogic.cs" />
      <Compile Include="Assets\Scripts\ProjectileScripts\WarningLogic.cs" />
      <Compile Include="Assets\Scripts\SlowlyAppear.cs" />
-     <Compile Include="Assets\Scripts\SnakeLogic.cs" />
      <Compile Include="Assets\Scripts\TurretLogic.cs" />
      <Compile Include="Assets\Scripts\WallCollider.cs" />
  <Reference Include="UnityEngine.UI">
