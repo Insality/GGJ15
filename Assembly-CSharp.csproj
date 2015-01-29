@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>d:/soft/Unity/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Soft/Unity/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>d:/soft/Unity/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Soft/Unity/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +70,7 @@
      <Compile Include="Assets\Scripts\TurretLogic.cs" />
      <Compile Include="Assets\Scripts\WallCollider.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>d:/soft/Unity/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Soft/Unity/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

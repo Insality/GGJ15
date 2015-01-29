@@ -35,6 +35,8 @@ namespace Assets.Scripts {
                 if (_levelManagerScript.CurLevel == 1){
                     if (_levelManagerScript.CurrentTactic == 0){
                         PattertnSingleShotRound();
+//                        PatternDoubleSnake(_levelManagerScript.CurTurretActive);
+
                     }
                     if (_levelManagerScript.CurrentTactic == 1){
                         PatternSingleLaser(Random.Range(0, 6));
@@ -49,7 +51,11 @@ namespace Assets.Scripts {
                         PatternTripleLaser();
                     }
                     if (_levelManagerScript.CurrentTactic == 1){
-                        PattertnSingleShotRoundPair();
+                        //useless
+                        //PattertnSingleShotRoundPair();
+                        // need side patterns
+                        PatternDoubleSnake(_levelManagerScript.CurTurretActive);
+
                     }
                     if (_levelManagerScript.CurrentTactic == 2){
                         PatternSingleHunter(_levelManagerScript.CurTurretActive, 7);
@@ -58,7 +64,7 @@ namespace Assets.Scripts {
 
                 if (_levelManagerScript.CurLevel == 3){
                     if (_levelManagerScript.CurrentTactic == 0){
-                        PatternSingleBomb(_levelManagerScript.CurTurretActive, 3, Random.Range(4, 6));
+                        PatternSingleBomb(_levelManagerScript.CurTurretActive, 3, Random.Range(3, 6));
                     }
                     if (_levelManagerScript.CurrentTactic == 1){
                         PatternSingleHunter(_levelManagerScript.CurTurretActive, 7);
@@ -72,8 +78,11 @@ namespace Assets.Scripts {
 
                 if (_levelManagerScript.CurLevel == 4){
                     if (_levelManagerScript.CurrentTactic == 0){
-                        PatternSingleSnake(_levelManagerScript.CurTurretActive, 2);
-                        PatternSingleSnake((_levelManagerScript.CurTurretActive + 3)%6, 2);
+                        // useless here:
+//                        PatternSingleSnake(_levelManagerScript.CurTurretActive, 2);
+//                        PatternSingleSnake((_levelManagerScript.CurTurretActive + 3)%6, 2);
+                        // need side patterns
+                        PatternSideAllSingle(2);
                     }
                     if (_levelManagerScript.CurrentTactic == 1){
                         PatternDoubleRound();
@@ -179,6 +188,17 @@ namespace Assets.Scripts {
             PatternLaserAllSide(4);
         }
 
+        private void PatternSideAllSingle(int temp) {
+            if (_curBeat % FireBeatTemp == 0) {
+                PatternSingleShotNoCd(0, temp, 1);
+                PatternSingleShotNoCd(1, temp, 1);
+                PatternSingleShotNoCd(2, temp, 1);
+                PatternSingleShotNoCd(3, temp, 1);
+                PatternSingleShotNoCd(4, temp, 1);
+                PatternSingleShotNoCd(5, temp, 1);
+            }
+        }
+
         private void PatternHunterAndSnake(int i) {
             //hunter
             PatternSingleHunter(i, 7);
@@ -217,20 +237,30 @@ namespace Assets.Scripts {
             PatternSingleSnake((i + 3)%6, 2);
         }
 
+        private void PatternDoubleSnake(int i) {
+            PatternSingleSnake(i, 2);
+            PatternSingleSnake((i + 3) % 6, 2);
+        }
+
         private void PatternOmegaDouble(int i) {
             PatternSingleDouble(i, 17, 3);
             //PatternSingleDouble((3 + i)%6, 5, 3);
         }
 
         private void PatternSingleShotNoCd(int i, int temp) {
-            if (TurretNumber == i){
+            PatternSingleShotNoCd(i, temp, 0);
+        }
+
+        private void PatternSingleShotNoCd(int i, int temp, int deltaDir) {
+            if (TurretNumber == i) {
                 FireBeatTemp = temp;
                 var proj = Instantiate(OneDirProjectile) as GameObject;
                 proj.transform.position = transform.position +
-                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3)%6)));
-                proj.GetComponent<ProjectileLogic>().Direction = ((TurretNumber + 3)%6);
+                                          GameUtils.GetV3FromV2(GameUtils.GetVectorBySide(((TurretNumber + 3) % 6)));
+                proj.GetComponent<ProjectileLogic>().Direction = ((TurretNumber + 3 + deltaDir) % 6);
             }
         }
+
 
         private void PatternSingleShot(int i, int temp) {
             if (TurretNumber == i && _curBeat%FireBeatTemp == 0){

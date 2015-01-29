@@ -154,34 +154,34 @@ namespace Assets.Scripts {
 
             if (level == 5){
                 GameUtils.ReplaceWith(HexagonTileWall, -4, 1);
-                GameUtils.ReplaceWith(HexagonTileWall, -5, 2);
-                GameUtils.ReplaceWith(HexagonTileWall, -5, 3);
+//                GameUtils.ReplaceWith(HexagonTileWall, -5, 2);
+//                GameUtils.ReplaceWith(HexagonTileWall, -5, 3);
                 GameUtils.ReplaceWith(HexagonTileWall, -4, 3);
 
                 GameUtils.ReplaceWith(HexagonTileWall, 4, -1);
-                GameUtils.ReplaceWith(HexagonTileWall, 5, -2);
-                GameUtils.ReplaceWith(HexagonTileWall, 5, -3);
+//                GameUtils.ReplaceWith(HexagonTileWall, 5, -2);
+//                GameUtils.ReplaceWith(HexagonTileWall, 5, -3);
                 GameUtils.ReplaceWith(HexagonTileWall, 4, -3);
 
                 GameUtils.ReplaceWith(HexagonTileWall, -3, 4);
-                GameUtils.ReplaceWith(HexagonTileWall, -3, 5);
-                GameUtils.ReplaceWith(HexagonTileWall, -2, 5);
+//                GameUtils.ReplaceWith(HexagonTileWall, -3, 5);
+//                GameUtils.ReplaceWith(HexagonTileWall, -2, 5);
                 GameUtils.ReplaceWith(HexagonTileWall, -1, 4);
 
                 GameUtils.ReplaceWith(HexagonTileWall, 3, -4);
-                GameUtils.ReplaceWith(HexagonTileWall, 3, -5);
-                GameUtils.ReplaceWith(HexagonTileWall, 2, -5);
+//                GameUtils.ReplaceWith(HexagonTileWall, 3, -5);
+//                GameUtils.ReplaceWith(HexagonTileWall, 2, -5);
                 GameUtils.ReplaceWith(HexagonTileWall, 1, -4);
 
 
                 GameUtils.ReplaceWith(HexagonTileWall, -3, -1);
-                GameUtils.ReplaceWith(HexagonTileWall, -3, -2);
-                GameUtils.ReplaceWith(HexagonTileWall, -2, -3);
+//                GameUtils.ReplaceWith(HexagonTileWall, -3, -2);
+//                GameUtils.ReplaceWith(HexagonTileWall, -2, -3);
                 GameUtils.ReplaceWith(HexagonTileWall, -1, -3);
 
                 GameUtils.ReplaceWith(HexagonTileWall, 3, 1);
-                GameUtils.ReplaceWith(HexagonTileWall, 3, 2);
-                GameUtils.ReplaceWith(HexagonTileWall, 2, 3);
+//                GameUtils.ReplaceWith(HexagonTileWall, 3, 2);
+//                GameUtils.ReplaceWith(HexagonTileWall, 2, 3);
                 GameUtils.ReplaceWith(HexagonTileWall, 1, 3);
             }
         }
