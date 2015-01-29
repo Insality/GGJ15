@@ -35,7 +35,7 @@ namespace Assets.Scripts {
                 if (_levelManagerScript.CurLevel == 1){
                     if (_levelManagerScript.CurrentTactic == 0){
                         PattertnSingleShotRound();
-//                        PatternDoubleSnake(_levelManagerScript.CurTurretActive);
+//                        PatternTripleDouble(_levelManagerScript.CurTurretActive, 4);
 
                     }
                     if (_levelManagerScript.CurrentTactic == 1){
@@ -53,8 +53,8 @@ namespace Assets.Scripts {
                     if (_levelManagerScript.CurrentTactic == 1){
                         //useless
                         //PattertnSingleShotRoundPair();
-                        // need side patterns
-                        PatternDoubleSnake(_levelManagerScript.CurTurretActive);
+                        // need side patterns?
+                        PatternSingleBomb(_levelManagerScript.CurTurretActive, 3, Random.Range(3, 6));
 
                     }
                     if (_levelManagerScript.CurrentTactic == 2){
@@ -64,7 +64,7 @@ namespace Assets.Scripts {
 
                 if (_levelManagerScript.CurLevel == 3){
                     if (_levelManagerScript.CurrentTactic == 0){
-                        PatternSingleBomb(_levelManagerScript.CurTurretActive, 3, Random.Range(3, 6));
+                        PatternDoubleSnake(_levelManagerScript.CurTurretActive);
                     }
                     if (_levelManagerScript.CurrentTactic == 1){
                         PatternSingleHunter(_levelManagerScript.CurTurretActive, 7);
@@ -100,12 +100,13 @@ namespace Assets.Scripts {
                         PatternTripleAllLaser();
                     }
                     if (_levelManagerScript.CurrentTactic == 2){
-                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive)%6, 8);
-                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 1)%6, 8);
-                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 2)%6, 8);
-                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 3)%6, 8);
-                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 4)%6, 8);
-                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 5)%6, 8);
+//                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive)%6, 8);
+//                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 1)%6, 8);
+//                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 2)%6, 8);
+//                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 3)%6, 8);
+//                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 4)%6, 8);
+//                        PatternSingleShotNoCd((_levelManagerScript.CurTurretActive + 5)%6, 8);
+                        PatternTripleDouble(_levelManagerScript.CurTurretActive, 5);
                     }
                 }
 
@@ -180,6 +181,12 @@ namespace Assets.Scripts {
             PatternSingleLaser(0);
             PatternSingleLaser(2);
             PatternSingleLaser(4);
+        }
+
+        private void PatternTripleDouble(int i, int temp) {
+            PatternSingleDouble(i, temp, 1);
+            PatternSingleDouble((i+2)%6, temp, 1);
+            PatternSingleDouble((i + 4) % 6, temp, 1);
         }
 
         private void PatternTripleAllLaser() {
